@@ -21,7 +21,7 @@ to execute their own local version. Ultimately, the goal of FAIRTox is to improv
 and reproducibility through an intuitive interface that serves bioinformaticians and novices alike. 
 
 ## Getting Started
-1) Pull ZED to a fresh repsitory.
+1) Pull ZED to a fresh repository.
 
 2) Download data files from GDrive link below and place in /app folder within repo
 https://drive.google.com/drive/folders/11RZwfEpDIJs8gYE1neV0loOpz041_tRX?usp=sharing
