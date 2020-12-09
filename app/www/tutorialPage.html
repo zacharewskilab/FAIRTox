@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<body>
+
+<header class="w3-container w3-red w3-center" style="padding:50px 16px">
+	<div class="w3-third w3-left">
+		<h5>
+		A. Here is where you can select which gene to investigate. A list of potential searches will appear below the search
+		bar as you type, and are dependent on the annotation source you choose. Additionally, you can adjust the slider to 
+		fit the P1t threshold you wish to apply. Once the parameters are as you want them, simply click the 'Plot' button
+		and the figure corresponding to your inputs will be displayed.
+		</h5>
+		<h5>
+		B. Here you can choose which data you wish to plot. By checking and unchecking these boxes, the plot on the right will 
+	    automatically adjust to display only the species, sex, and organ data you wish to view.
+		</h5>
+		<h5>
+		C. Here you can choose how your data will be displayed graphically. The dose-response figure describes fold change as a function
+		of treatment dose concentration. Time-course will show fold change as well, but as a function of time after the dose was 
+		administered. The circadian tab contains two figures. One describes how fold change of the selected gene varies over a 48 hour
+		circadian cycle, and the other plots normalized signal for both the treatment and vehicle replicates for the given gene, also over 
+		a 48 hour circadian cycle. The basal expression levels tab gives statistical analysis of the distribution of normalized signal data,
+		grouped by study, sex, and or species. And finally, the venn diagram tab allows the user to select a number of projects and a threshold 
+		P1t value, and the figure will display how many genes are in each of the selected projects that exceed that threshold. <br> <br>
+		Additionally, the plot type can be changed using the drop down menu directly below the tabs and the x axis scale can be toggled between
+		log and linear.
+		</h5>
+		<h5>
+		D. This is where the main plot is displayed. Hovering over the points will provide more information about that point such as the project name,
+		and the exact value it represents.
+		</h5>
+		<h5>
+		E. This table provides additional information for each project described in the plot above. By clicking on te PMID or GEO ID numbers, a 
+		link to that project will be loaded in a new browser tab.
+		</h5>
+	</div>
+	<div class="w3-center">
+		<img src="mainPageScreenshotAllHighlighted.png" width="1100" height="600">
+	</div>
+</header>
+
+</body>
+</html>
