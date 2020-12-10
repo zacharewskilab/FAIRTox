@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/320034618.svg)](https://zenodo.org/badge/latestdoi/320034618)
 # Zacharewski Lab Expression DataViewer (ZED) ShinyApp
 Version 4.0
 
