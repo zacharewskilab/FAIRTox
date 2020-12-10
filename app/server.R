@@ -1748,11 +1748,14 @@ shinyServer(function(input, output, session){
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     # Merge on barcode
     gene_df <- merge(gene_df, sn$umap, by = "NAME")
+    gene_df <- merge(gene_df, sn$meta, by = "NAME")
+    
+    print(head(gene_df))
     
     # Create Plot
     plot <- ggplot(gene_df) + geom_point(aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.numeric(as.vector(VALUE))), size = 0.1) +
             scale_color_gradient2(low = 'lightgrey', mid = 'grey', high = '#1908ff') +
-            facet_wrap(~GENE) +
+            facet_wrap(~as.factor(.data[[input$singlecell_metadata_select_feature]])) +
             xlab("UMAP1") +
             ylab("UMAP2") +
             labs(color = "Normalized Expression") +
@@ -1888,6 +1891,14 @@ shinyServer(function(input, output, session){
     }
     else{
       shinyjs::show(id = "singlecell_genelist_left_panel")
+    }
+    if(input$singlecell_tabs == "Feature Plot"){
+      shinyjs::show(id = "singlecell_right_panel_feature")
+      shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
+    }
+    else{
+      shinyjs::hide(id = "singlecell_right_panel_feature")
+      shinyjs::show(id = "singlecell_right_panel_all_except_feature")
     }
   })
   
