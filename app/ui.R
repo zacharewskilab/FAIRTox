@@ -543,8 +543,14 @@ function(request){
               ),
               column(2,
                 wellPanel(id = "singlecell_right_panel",
+                  div(id = "singlecell_right_panel_all_except_feature",
                   selectInput(inputId = "singlecell_metadata_select", label = "Select metadata to group by:", choices = c("ident", "treatment", "celltype"),
                               selected = "celltype", multiple = FALSE)
+                  ),
+                  div(id = "singlecell_right_panel_feature",
+                  selectInput(inputId = "singlecell_metadata_select_feature", label = "Select metadata to group by:", choices = c("GENE", "ident", "treatment", "celltype"),
+                              selected = "GENE", multiple = FALSE)    
+                  )
                 )
               )
               )
