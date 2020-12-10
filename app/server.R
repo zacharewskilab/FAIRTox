@@ -1892,18 +1892,18 @@ shinyServer(function(input, output, session){
   
   ### End Single Cell ###
   
-  autoInvalidate <- reactiveTimer(2000)
-  
-  env <- globalenv()  # can use globalenv(), parent.frame(), etc
-  output$foo <- renderTable({
-    autoInvalidate()
-    table <- data.frame(
-      object = c(ls(env), "total"),
-      size = c(unlist(lapply(ls(env), function(x) {
-        object.size(get(x, envir = env, inherits = FALSE))
-      })), lobstr::mem_used())
-    )
-  })
+  # autoInvalidate <- reactiveTimer(2000)
+  # 
+  # env <- globalenv()  # can use globalenv(), parent.frame(), etc
+  # output$foo <- renderTable({
+  #   autoInvalidate()
+  #   table <- data.frame(
+  #     object = c(ls(env), "total"),
+  #     size = c(unlist(lapply(ls(env), function(x) {
+  #       object.size(get(x, envir = env, inherits = FALSE))
+  #     })), lobstr::mem_used())
+  #   )
+  # })
   
   ### Integration of Tableau Viz testing ###
   ### Not implemented in current version ###
