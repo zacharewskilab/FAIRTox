@@ -1750,8 +1750,6 @@ shinyServer(function(input, output, session){
     gene_df <- merge(gene_df, sn$umap, by = "NAME")
     gene_df <- merge(gene_df, sn$meta, by = "NAME")
     
-    print(head(gene_df))
-    
     # Create Plot
     plot <- ggplot(gene_df) + geom_point(aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.numeric(as.vector(VALUE))), size = 0.1) +
             scale_color_gradient2(low = 'lightgrey', mid = 'grey', high = '#1908ff') +
