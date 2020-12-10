@@ -603,7 +603,7 @@ shinyServer(function(input, output, session){
     gene_symbol_upper <- toupper(input$symbolInput)
     
     # Create list of reference types
-    references <- c("GeneCards", "Ensembl - Human", "Ensembl - Mouse", "Ensembl - Rat", "NCBI - Human", "NCBI - Mouse", "NCBI - Rat", "KEGG", "Reactome")
+    references <- c("GeneCards", "Ensembl - Human", "Ensembl - Mouse", "Ensembl - Rat", "NCBI - Human", "NCBI - Mouse", "NCBI - Rat", "KEGG", "Reactome", "BioGPS")
     
     # Define SQL commands for pulling ENSEMBL and NCBI ID's
     sqlcmd_ens <- paste("SELECT Ensembl_ID FROM Annotation where Annotation.Symbol == '",gene_symbol_upper,"';", sep = "")
@@ -620,11 +620,12 @@ shinyServer(function(input, output, session){
                paste0("<a href='https://uswest.ensembl.org/Homo_sapiens/Gene/Summary?g=", ensembls_df$Ensembl_ID[1], "'target='_blank'>", ensembls_df$Ensembl_ID[1],"</a>"),
                paste0("<a href='https://useast.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=", ensembls_df$Ensembl_ID[2], "'target='_blank'>", ensembls_df$Ensembl_ID[2],"</a>"),
                paste0("<a href='https://useast.ensembl.org/Rattus_norvegicus/Gene/Summary?db=core;g=", ensembls_df$Ensembl_ID[3], "'target='_blank'>", ensembls_df$Ensembl_ID[3],"</a>"),
-               paste0("<a href='https://www.ncbi.nlm.nih.gov/gene/", ncbis_df$NCBI_ID[2], "'target='_blank'>", ncbis_df$NCBI_ID[1],"</a>"),
+               paste0("<a href='https://www.ncbi.nlm.nih.gov/gene/", ncbis_df$NCBI_ID[1], "'target='_blank'>", ncbis_df$NCBI_ID[1],"</a>"),
                paste0("<a href='https://www.ncbi.nlm.nih.gov/gene/", ncbis_df$NCBI_ID[2], "'target='_blank'>", ncbis_df$NCBI_ID[2],"</a>"),
                paste0("<a href='https://www.ncbi.nlm.nih.gov/gene/", ncbis_df$NCBI_ID[3], "'target='_blank'>", ncbis_df$NCBI_ID[3],"</a>"),
                paste0("<a href='https://www.genome.jp/dbget-bin/www_bfind_sub?mode=bfind&max_hit=1000&dbkey=kegg&keywords=", input$symbolInput, "'target='_blank'>", input$symbolInput,"</a>"),
-               paste0("<a href='https://reactome.org/content/query?q=", input$symbolInput, "&species=Homo+sapiens&species=Entries+without+species&cluster=true'target='_blank'>", input$symbolInput,"</a>"))
+               paste0("<a href='https://reactome.org/content/query?q=", input$symbolInput, "&species=Homo+sapiens&species=Entries+without+species&cluster=true'target='_blank'>", input$symbolInput,"</a>"),
+               paste0("<a href='https://biogps.org/#goto=genereport&id=", ncbis_df$NCBI_ID[2], "'target='_blank'>", ncbis_df$NCBI_ID[2],"</a>"))
     
     # Build output dataframe 
     df <- data.frame("Source" = references, "Link" = links)
