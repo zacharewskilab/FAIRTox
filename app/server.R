@@ -1830,11 +1830,9 @@ shinyServer(function(input, output, session){
     data_long <- as.data.frame(merge(data_long, sn$meta, by = "NAME"))
     
     # Count number of zeros and number of nonzeros grouped by gene and celltype 
-    zeros <- data_long %>% filter(VALUE == 0) %>% group_by(GENE, across(all_of(input$singlecell_metadata_select))) %>% summarise(numZeros = n())
-    nonzeros <- data_long %>% group_by(GENE, across(all_of(input$singlecell_metadata_select))) %>% summarise(nonzeros = n(), avg_value = mean(VALUE))
-    
-    # Calculate percent expressed
-    nonzeros$percent_expressed <- (1 - (zeros$numZeros / nonzeros$nonzeros)) * 100
+    nonzeros <- data_long %>% 
+      group_by(GENE, across(all_of(input$singlecell_metadata_select))) %>% 
+      summarise(percent_expressed = (1 - (sum(VALUE == 0)/(sum(VALUE > 0) + sum(VALUE == 0)))) * 100, avg_value = mean(VALUE))
     
     nonzeros <- drop_na(nonzeros)
     
