@@ -22,9 +22,9 @@ to execute their own local version. Ultimately, the goal of FAIRTox is to improv
 and reproducibility through an intuitive interface that serves bioinformaticians and novices alike. 
 
 ## Getting Started
-1) Pull ZED to a fresh repository.
+1. Pull ZED to a fresh repository.
 
-2) Download data files from GDrive link below and place in /app folder within repo
+2. Download data files from GDrive link below and place in /app folder within repo
 https://drive.google.com/drive/folders/11RZwfEpDIJs8gYE1neV0loOpz041_tRX?usp=sharing
 
 ### Prerequisites
@@ -64,32 +64,32 @@ Packages:
 See Dockerfile for specific versions and installation commands.
 
 ## Running Locally
-3a) Install correct R version and required packages (listed above)
+3a. Install correct R version and required packages (listed above)
 
-4a) Open in RStudio and run
+4a. Open in RStudio and run
 
 ## Deployment in Docker
-3b) Install Docker from link below
+3b. Install Docker from link below
 Docker - [Version 18.09.3 build 77a1f4eee](https://www.docker.com/products/docker-desktop) (later versions not tested)
 
 This section is performed within the Docker command line.
-4b) Before starting, make sure you have the most recent version and are operating on the deployed node for the current version.
+4b. Before starting, make sure you have the most recent version and are operating on the deployed node for the current version.
 ```
 $ git pull https://gitlab.msu.edu/naultran/zed.git
 $ git checkout FAIRTox_V4.0_live
 ```
 
-5b) Run bash script
+5b. Run bash script
 ```
 ./docker_container_rebuild.sh
 ```
 
-6b) To ensure container is running
+6b. To ensure container is running
 ```
 $ docker ps
 ```
 
-7b) To access the ShinyApp, navigate to dockerhost:80 in your web browser of choice.
+7b. To access the ShinyApp, navigate to dockerhost:80 in your web browser of choice.
 
 ## Built With
 * [R Shiny](http://shiny.rstudio.com)
