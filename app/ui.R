@@ -495,7 +495,10 @@ function(request){
               column(2,
                 wellPanel(id = "singlecell_left_panel", style = "background: #919191",
                     div(id = "singlecell_select_dataset",
-                      selectInput(inputId = "singlecell_dataset_input", label = "Select Dataset:", choices = c("Large", "Small"), selected = "Small", multiple = FALSE)
+                      selectInput(inputId = "singlecell_dataset_input", label = "Select Dataset:", choices = c("Large", "Small"), selected = "Small", multiple = FALSE),
+                      checkboxGroupInput(inputId = "singlecell_species_select", label = "Select species to show:", choices = unique(sc_dataset_meta$Species_common)),
+                      checkboxGroupInput(inputId = "singlecell_sex_select", label = "Select sex to show:", choices = unique(sc_dataset_meta$Sex)),
+                      tableOutput("singlecell_dataset_choices")
                     ),
                     div(id = "singlecell_genelist_left_panel",
                       tags$h4("Enter Gene List:", style = "color: white"),
@@ -522,7 +525,14 @@ function(request){
                     )
                 )
               ),
-              column(8,
+              column(4,
+                lapply(1:2, function(i) {
+                   div(id = paste0('sc_description', i),
+                      htmlOutput(outputId = paste0('sc_description', i))
+                   )
+                })
+              ),
+              column(4,
                 tabsetPanel(id = "singlecell_tabs", type = "tabs",
                 tabPanel("UMAP",
                   withSpinner(plotOutput("UMAP")), br(), br(), br(), br(), br(), br(), br(), br(), br()
@@ -552,16 +562,15 @@ function(request){
                               selected = "GENE", multiple = FALSE)    
                   ),
                   div(id = "singlecell_right_panel_UMAP",
-                  selectInput(inputId = "UMAP_color_by_select", label = "Select metadata to color by:", 
-                              choices = c("ident", "treatment", "celltype"), selected = "celltype", multiple = FALSE),
-                  selectInput(inputId = "UMAP_label_by_input", label = "Select metadata to label by:", 
-                              choices = c("None", "ident", "treatment", "celltype"), selected = "None", multiple = FALSE),
-                  selectInput(inputId = "UMAP_show_num_genes", label = "Select number of genes to show:", 
-                              choices = c("All", "500"), selected = "500", multiple = FALSE)
-                  )
+                      selectInput(inputId = "UMAP_color_by_select", label = "Select metadata to color by:", 
+                                  choices = c("ident", "treatment", "celltype"), selected = "celltype", multiple = FALSE),
+                      selectInput(inputId = "UMAP_label_by_input", label = "Select metadata to label by:", 
+                                  choices = c("None", "ident", "treatment", "celltype"), selected = "None", multiple = FALSE),
+                      selectInput(inputId = "UMAP_show_num_genes", label = "Select number of genes to show:", 
+                                  choices = c("All", "500"), selected = "500", multiple = FALSE)
+                  ) 
                 )
-              )
-              )
+              ))
             )
         ),
             # Footer section

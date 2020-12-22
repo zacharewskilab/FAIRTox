@@ -1728,8 +1728,6 @@ shinyServer(function(input, output, session){
     # Merge cluster and metadata
     umap_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
-    print(head(umap_dataframe))
-    
     if(input$UMAP_show_num_genes == 500){
       umap_dataframe <- umap_dataframe[1:500,]
     }
@@ -1896,6 +1894,23 @@ shinyServer(function(input, output, session){
   output$DotPlot <- renderPlotly({
     plot <- createDotPlot()
     plot
+  })
+  
+  
+  sc_description_maker <- eventReactive(c(input$singlecell_species_select, input$singlecell_sex_select),{
+    choices <- sc_dataset_meta %>% filter(Species_common %in% input$singlecell_species_select, Sex %in% input$singlecell_sex_select)
+    result <- choices$Project_ID
+    return(result)
+  })
+  
+  output$singlecell_dataset_choices <- renderTable({
+    result <- sc_description_maker()
+    print(result)
+    lapply(1:length(result), function(i) {
+      output[[paste0('sc_description', i)]] <- renderUI({
+        includeHTML(paste0("C:\\Users\\Jack\\Desktop\\FAIRTox_github\\app\\www\\", result[i], ".html"))
+      })
+    })
   })
   
   # Hide/show divs based on what tab is selected
