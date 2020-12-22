@@ -550,6 +550,14 @@ function(request){
                   div(id = "singlecell_right_panel_feature",
                   selectInput(inputId = "singlecell_metadata_select_feature", label = "Select metadata to group by:", choices = c("GENE", "ident", "treatment", "celltype"),
                               selected = "GENE", multiple = FALSE)    
+                  ),
+                  div(id = "singlecell_right_panel_UMAP",
+                  selectInput(inputId = "UMAP_color_by_select", label = "Select metadata to color by:", 
+                              choices = c("ident", "treatment", "celltype"), selected = "celltype", multiple = FALSE),
+                  selectInput(inputId = "UMAP_label_by_input", label = "Select metadata to label by:", 
+                              choices = c("None", "ident", "treatment", "celltype"), selected = "None", multiple = FALSE),
+                  selectInput(inputId = "UMAP_show_num_genes", label = "Select number of genes to show:", 
+                              choices = c("All", "500"), selected = "500", multiple = FALSE)
                   )
                 )
               )

@@ -1728,12 +1728,30 @@ shinyServer(function(input, output, session){
     # Merge cluster and metadata
     umap_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
+    print(head(umap_dataframe))
+    
+    if(input$UMAP_show_num_genes == 500){
+      umap_dataframe <- umap_dataframe[1:500,]
+    }
+    
     # Plot
-    plot <- ggplot(umap_dataframe) + geom_point(aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$singlecell_metadata_select]])), size = 0.1) +
-            xlab("UMAP1") +
-            ylab("UMAP2") +
-            labs(color = "Cell Type") +
-            theme_bw()
+    if(input$UMAP_label_by_input == "None"){
+      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]))) + 
+        geom_point(size = 0.1) +
+        xlab("UMAP1") +
+        ylab("UMAP2") +
+        labs(color = as.character(input$UMAP_color_by_select)) +
+        theme_bw()
+    }
+    else{
+      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]), label = as.factor(.data[[input$UMAP_label_by_input]]))) + 
+              geom_point(size = 0.1) +
+              geom_text(check_overlap = TRUE) +
+              xlab("UMAP1") +
+              ylab("UMAP2") +
+              labs(color = as.character(input$UMAP_color_by_select)) +
+              theme_bw()
+    }
     return(plot)
   })
   
@@ -1884,17 +1902,21 @@ shinyServer(function(input, output, session){
   observeEvent(input$singlecell_tabs, {
     if(input$singlecell_tabs == "UMAP"){
       shinyjs::hide(id = "singlecell_genelist_left_panel")
+      shinyjs::show(id = "singlecell_right_panel_UMAP")
+      shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
+      shinyjs::hide(id = "singlecell_right_panel_feature")
+    }
+    else if(input$singlecell_tabs == "Feature Plot"){
+      shinyjs::show(id = "singlecell_genelist_left_panel")
+      shinyjs::hide(id = "singlecell_right_panel_UMAP")
+      shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
+      shinyjs::show(id = "singlecell_right_panel_feature")
     }
     else{
       shinyjs::show(id = "singlecell_genelist_left_panel")
-    }
-    if(input$singlecell_tabs == "Feature Plot"){
-      shinyjs::show(id = "singlecell_right_panel_feature")
-      shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
-    }
-    else{
-      shinyjs::hide(id = "singlecell_right_panel_feature")
+      shinyjs::hide(id = "singlecell_right_panel_UMAP")
       shinyjs::show(id = "singlecell_right_panel_all_except_feature")
+      shinyjs::hide(id = "singlecell_right_panel_feature")
     }
   })
   
