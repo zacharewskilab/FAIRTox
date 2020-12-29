@@ -547,7 +547,7 @@ function(request){
                   withSpinner(plotOutput("ViolinPlot"))
                 ),
                 tabPanel("Dot Plot",
-                  withSpinner(plotlyOutput("DotPlot"))
+                  withSpinner(plotOutput("DotPlot"))
                 )
                 )
               ),

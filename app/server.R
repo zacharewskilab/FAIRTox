@@ -1852,16 +1852,16 @@ shinyServer(function(input, output, session){
     
     nonzeros <- drop_na(nonzeros)
     
-    # Create plot
-    plot <- ggplot(nonzeros, aes(x = .data[[input$singlecell_metadata_select]], y = GENE, fill = avg_value, text = percent_expressed)) +
-      geom_tile() +
-      geom_text(aes(label = round(percent_expressed, 3))) +
-      xlab("Cell Type") +
-      ylab("Gene") +
-      labs(fill = "Average Normalized Expression") +
-      theme(axis.text.x = element_text(angle = 90))
+    print(head(nonzeros))
     
-    plot <- ggplotly(plot, tooltip = c("fill", "text"), width = 1200, height = 600)
+    saveRDS(nonzeros, 'C:\\Users\\Jack\\Desktop\\nonzeros.rds')
+    
+    # Create plot
+    plot <- ggplot(data = nonzeros, mapping = aes_string(x = 'GENE', y = 'celltype')) +
+      geom_point(mapping = aes_string(size = 'percent_expressed', color = "avg_value")) +
+      #scale.func(range = c(0, dot.scale), limits = c(scale.min, scale.max)) +
+      theme(axis.title.x = element_blank(), axis.title.y = element_blank())
+      #guides(size = guide_legend(title = 'Percent Expressed'))
     
     return(plot)
   })
@@ -1891,7 +1891,7 @@ shinyServer(function(input, output, session){
   }, height = 600, width = 1200)
   
   # Output Dot plot
-  output$DotPlot <- renderPlotly({
+  output$DotPlot <- renderPlot({
     plot <- createDotPlot()
     plot
   })
