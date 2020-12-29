@@ -1750,6 +1750,9 @@ shinyServer(function(input, output, session){
               labs(color = as.character(input$UMAP_color_by_select)) +
               theme_bw()
     }
+    
+    plot <- ggplotly(plot)
+    
     return(plot)
   })
   
@@ -1774,6 +1777,9 @@ shinyServer(function(input, output, session){
             ylab("UMAP2") +
             labs(color = "Normalized Expression") +
             theme_bw()
+    
+    plot <- ggplotly(plot)
+    
     return(plot)
   })
   
@@ -1796,6 +1802,7 @@ shinyServer(function(input, output, session){
             xlab("Normalized Expression") + 
             ylab("Cell Type") +
             theme_bw()
+    
     return(plot)
   })
   
@@ -1819,7 +1826,7 @@ shinyServer(function(input, output, session){
       xlab("Cell Type") +
       ylab("Normalized Expression") +
       theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none")
-      
+    
     return(plot)
   })
   
@@ -1863,39 +1870,40 @@ shinyServer(function(input, output, session){
       theme(axis.title.x = element_blank(), axis.title.y = element_blank())
       #guides(size = guide_legend(title = 'Percent Expressed'))
     
+    plot <- ggplotly(plot)
+    
     return(plot)
   })
   
   # Output UMAP
-  output$UMAP <- renderPlot({
+  output$UMAP <- renderPlotly({
     plot <- createUMAP()
     plot
-  }, height = 600, width = 1200)
+  })
   
   # Output Feature plot
-  output$FeaturePlot <- renderPlot({
+  output$FeaturePlot <- renderPlotly({
     plot <- createFeaturePlot()
     plot
-  }, height = 600, width = 1200)
+  })
   
   # Output Ridge plot
   output$RidgePlot <- renderPlot({
     plot <- createRidgePlot()
     plot
-  }, height = 600, width = 1200)
+  },)
   
   # Output Violin plot
   output$ViolinPlot <- renderPlot({
     plot <- createViolinPlot()
     plot
-  }, height = 600, width = 1200)
+  })
   
   # Output Dot plot
-  output$DotPlot <- renderPlot({
+  output$DotPlot <- renderPlotly({
     plot <- createDotPlot()
     plot
   })
-  
   
   sc_description_maker <- eventReactive(c(input$singlecell_species_select, input$singlecell_sex_select),{
     choices <- sc_dataset_meta %>% filter(Species_common %in% input$singlecell_species_select, Sex %in% input$singlecell_sex_select)
