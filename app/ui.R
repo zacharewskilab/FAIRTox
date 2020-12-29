@@ -525,20 +525,20 @@ function(request){
                     )
                 )
               ),
-              column(4,
+              column(1,
                 lapply(1:2, function(i) {
                    div(id = paste0('sc_description', i),
                       htmlOutput(outputId = paste0('sc_description', i))
                    )
                 })
               ),
-              column(4,
+              column(7,
                 tabsetPanel(id = "singlecell_tabs", type = "tabs",
                 tabPanel("UMAP",
-                  withSpinner(plotOutput("UMAP")), br(), br(), br(), br(), br(), br(), br(), br(), br()
+                  withSpinner(plotlyOutput("UMAP")), br(), br(), br(), br(), br(), br(), br(), br(), br()
                 ),
                 tabPanel("Feature Plot",
-                  withSpinner(plotOutput("FeaturePlot"))
+                  withSpinner(plotlyOutput("FeaturePlot"))
                 ),
                 tabPanel("Ridge Plot",
                   withSpinner(plotOutput("RidgePlot"))
@@ -547,7 +547,7 @@ function(request){
                   withSpinner(plotOutput("ViolinPlot"))
                 ),
                 tabPanel("Dot Plot",
-                  withSpinner(plotOutput("DotPlot"))
+                  withSpinner(plotlyOutput("DotPlot"))
                 )
                 )
               ),
