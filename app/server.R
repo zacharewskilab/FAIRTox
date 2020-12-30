@@ -1875,6 +1875,20 @@ shinyServer(function(input, output, session){
     return(plot)
   })
   
+  createSampleMakeupPlot <- eventReactive(input$plot_singlecell, {
+    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+    sample_makeup_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
+    
+    d <- sample_makeup_dataframe[, c("treatment", "celltype")]
+    d2 <- d %>%
+      group_by(.data[[input$singlecell_metadata_select]], celltype) %>%
+      summarise(count = n()) %>%
+      mutate(perc = count/sum(count))
+    
+    ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
+      geom_bar(stat = 'identity', width = 0.7)
+  })
+  
   # Output UMAP
   output$UMAP <- renderPlotly({
     plot <- createUMAP()
@@ -1902,6 +1916,12 @@ shinyServer(function(input, output, session){
   # Output Dot plot
   output$DotPlot <- renderPlotly({
     plot <- createDotPlot()
+    plot
+  })
+  
+  # Output Sample Makeup plot
+  output$SampleMakeupPlot <- renderPlot({
+    plot <- createSampleMakeupPlot()
     plot
   })
   

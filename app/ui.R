@@ -548,6 +548,9 @@ function(request){
                 ),
                 tabPanel("Dot Plot",
                   withSpinner(plotlyOutput("DotPlot"))
+                ),
+                tabPanel("Sample Makeup Plot",
+                  withSpinner(plotOutput("SampleMakeupPlot"))
                 )
                 )
               ),
