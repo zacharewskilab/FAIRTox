@@ -551,6 +551,9 @@ function(request){
                 ),
                 tabPanel("Sample Makeup Plot",
                   withSpinner(plotOutput("SampleMakeupPlot"))
+                ),
+                tabPanel("Gene Expression Heatmap",
+                  withSpinner(plotOutput("GeneExpressionHeatmap"))
                 )
                 )
               ),
