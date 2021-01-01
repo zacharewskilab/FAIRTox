@@ -48,7 +48,7 @@ dittoHeatmap_modified <- function(
   }
   
   ### Obtain all needed data
-  object <- .swap_rownames(object, swap.rownames)
+  #object <- .swap_rownames(object, swap.rownames)
   
   # Replace with whatever test data in correct format
   #         sample1   sample2   sample3   ...
@@ -178,4 +178,15 @@ dittoHeatmap_modified <- function(
   }
   
   args
+}
+
+.default_order <- function(object, annot.by) {
+  # Sets the default for dittoHeatmap's 'order.by' to either NULL (no
+  # ordering), or the first element of 'annot.by' if the object is an SCE and
+  # annot.by has values.
+  if (!is.null(annot.by) && !isBulk(object)) {
+    return(annot.by[1])
+  } else {
+    return(NULL)
+  }
 }

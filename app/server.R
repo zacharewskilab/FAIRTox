@@ -1900,19 +1900,21 @@ shinyServer(function(input, output, session){
     gene_list <- create_singlecell_genelist()
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
-    # Merge on barcode
-    gene_df <- merge(gene_df, sn$meta, by = "NAME", all.y = TRUE)
     
-    data <- spread(data, GENE, VALUE)
+    print(head(gene_df))
     
-    data <- data[order(VALUE),]
+    data <- spread(gene_df, GENE, VALUE)
+    data[is.na(data)] <- 0
+    
+    print(head(data))
     
     data <- data[1:50,]
     row.names(data) <- data$NAME
     data <- data[,3:ncol(data)]
     data <- t(data)
     
-    dittoHeatmap_modified(data)
+    plot <- dittoHeatmap_modified(data)
+    return(plot)
   })
   
   # Output UMAP

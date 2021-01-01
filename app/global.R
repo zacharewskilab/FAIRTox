@@ -28,6 +28,7 @@ library(randomcoloR) #Large randomized color palettes
 library(mixOmics) #Required for PLS
 library(reticulate) #Required for single cell plots
 library(ggridges) #Single cell ridge plots
+library(pheatmap) # Required for dittoHeatmap
 
 # Load Single Cell Metadata
 sc_dataset_meta <- read_excel("C:\\Users\\Jack\\Desktop\\FAIRTox_github\\app\\RData\\SingleCell_Metadata.xlsx")
