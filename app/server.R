@@ -1723,11 +1723,7 @@ shinyServer(function(input, output, session){
     return(gene_list)
   }
   
-  # loadSet <- function(){
-  #   set <- loadSingleCellData(paste0("./RData/BroadFormat/", input$singlecell_dataset_input))
-  #   return(set)
-  # }
-  
+  # Ensure only one dataset is loaded at a time by unloading the old before loading the new
   observeEvent(input$singlecell_dataset_input, {
     if(exists("sn")){
       print("Unloading old dataset")
@@ -1737,12 +1733,49 @@ shinyServer(function(input, output, session){
     loadNewDataset(input$singlecell_dataset_input)
   })
   
-  # Create UMAP plot
-  createUMAP <- eventReactive(input$plot_singlecell, {
-    sn <- get("sn", inherits = TRUE)
-    
+  # Load the new dataset and replot
+  loadNewDataset <- function(dataset){
+    sn <- loadSingleCellData(paste0("./RData/BroadFormat/", dataset))
     print(head(sn))
-    
+    # Output UMAP
+    output$UMAP <- renderPlotly({
+      plot <- createUMAP(sn)
+      plot
+    })
+    # Output Feature plot
+    output$FeaturePlot <- renderPlotly({
+      plot <- createFeaturePlot(sn)
+      plot
+    })
+    # Output Ridge plot
+    output$RidgePlot <- renderPlot({
+      plot <- createRidgePlot(sn)
+      plot
+    })
+    # Output Violin plot
+    output$ViolinPlot <- renderPlot({
+      plot <- createViolinPlot(sn)
+      plot
+    })
+    # Output Dot plot
+    output$DotPlot <- renderPlotly({
+      plot <- createDotPlot(sn)
+      plot
+    })
+    # Output Sample Makeup plot
+    output$SampleMakeupPlot <- renderPlot({
+      plot <- createSampleMakeupPlot(sn)
+      plot
+    })
+    # Output Gene Expression Heatmap
+    output$GeneExpressionHeatmap <- renderPlot({
+      plot <- createGeneExpressionHeatmap(sn)
+      plot
+    })
+  }
+  
+  # Create UMAP plot
+  createUMAP <- function(sn){
     # Merge cluster and metadata
     umap_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
@@ -1771,13 +1804,11 @@ shinyServer(function(input, output, session){
     
     plot <- ggplotly(plot)
     
-    rm(sn)
-    
     return(plot)
-  })
+  }
   
   # Create Feature plot
-  createFeaturePlot <- eventReactive(input$plot_singlecell, {
+  createFeaturePlot <- function(sn){
     sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
@@ -1801,10 +1832,10 @@ shinyServer(function(input, output, session){
     plot <- ggplotly(plot)
     
     return(plot)
-  })
+  }
   
   # Create Ridge plot
-  createRidgePlot <- eventReactive(input$plot_singlecell, {
+  createRidgePlot <- function(sn){
     sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
@@ -1824,10 +1855,10 @@ shinyServer(function(input, output, session){
             theme_bw()
     
     return(plot)
-  })
+  }
   
   # Create Violin plot
-  createViolinPlot <- eventReactive(input$plot_singlecell, {
+  createViolinPlot <- function(sn){
     sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
@@ -1848,10 +1879,10 @@ shinyServer(function(input, output, session){
       theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none")
     
     return(plot)
-  })
+  }
   
   # Create Dot plot
-  createDotPlot <- eventReactive(input$plot_singlecell, {
+  createDotPlot <- function(sn){
     sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
@@ -1895,10 +1926,10 @@ shinyServer(function(input, output, session){
     plot <- ggplotly(plot)
     
     return(plot)
-  })
+  }
   
   # Create Sample Makup Plot
-  createSampleMakeupPlot <- eventReactive(input$plot_singlecell, {
+  createSampleMakeupPlot <- function(sn){
     sn <- get(paste0("sn_", input$singlecell_dataset_input))
     sample_makeup_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
@@ -1910,10 +1941,10 @@ shinyServer(function(input, output, session){
     
     ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
       geom_bar(stat = 'identity', width = 0.7)
-  })
+  }
   
   # Create Gene Expression Heatmap
-  createGeneExpressionHeatmap <- eventReactive(input$plot_singlecell, {
+  createGeneExpressionHeatmap <- function(sn){
     sn <- get(paste0("sn_", input$singlecell_dataset_input))
     
     gene_list <- create_singlecell_genelist()
@@ -1932,50 +1963,7 @@ shinyServer(function(input, output, session){
     
     plot <- dittoHeatmap_modified(data)
     return(plot)
-  })
-  
-  
-  # Output UMAP
-  output$UMAP <- renderPlotly({
-    plot <- createUMAP()
-    plot
-  })
-  
-  # Output Feature plot
-  output$FeaturePlot <- renderPlotly({
-    plot <- createFeaturePlot()
-    plot
-  })
-  
-  # Output Ridge plot
-  output$RidgePlot <- renderPlot({
-    plot <- createRidgePlot()
-    plot
-  },)
-  
-  # Output Violin plot
-  output$ViolinPlot <- renderPlot({
-    plot <- createViolinPlot()
-    plot
-  })
-  
-  # Output Dot plot
-  output$DotPlot <- renderPlotly({
-    plot <- createDotPlot()
-    plot
-  })
-  
-  # Output Sample Makeup plot
-  output$SampleMakeupPlot <- renderPlot({
-    plot <- createSampleMakeupPlot()
-    plot
-  })
-  
-  # Output Gene Expression Heatmap
-  output$GeneExpressionHeatmap <- renderPlot({
-    plot <- createGeneExpressionHeatmap()
-    plot
-  })
+  }
   
   sc_description_maker <- eventReactive(c(input$singlecell_species_select, input$singlecell_sex_select),{
     choices <- sc_dataset_meta %>% filter(Species_common %in% input$singlecell_species_select, Sex %in% input$singlecell_sex_select)

@@ -75,10 +75,6 @@ getGeneData = function(gene.list, barcode.list, scData){
 
 # Load Broad Format data
 sn <- loadSingleCellData("./RData/BroadFormat/Small")
-loadNewDataset <- function(dataset){
-  sn <- loadSingleCellData(paste0("./RData/BroadFormat/", dataset))
-  print(head(sn))
-}
 # sn_Large <- loadSingleCellData("./RData/BroadFormat/Large")
 
 # Builds empty dataframe for error catching
