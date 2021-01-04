@@ -1901,8 +1901,6 @@ shinyServer(function(input, output, session){
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     
-    print(head(gene_df))
-    
     data <- spread(gene_df, GENE, VALUE)
     data[is.na(data)] <- 0
     
