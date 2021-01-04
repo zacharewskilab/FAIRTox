@@ -1723,14 +1723,26 @@ shinyServer(function(input, output, session){
     return(gene_list)
   }
   
-  loadSet <- function(){
-    set <- loadSingleCellData(paste0("./RData/BroadFormat/", input$singlecell_dataset_input))
-    return(set)
-  }
+  # loadSet <- function(){
+  #   set <- loadSingleCellData(paste0("./RData/BroadFormat/", input$singlecell_dataset_input))
+  #   return(set)
+  # }
+  
+  observeEvent(input$singlecell_dataset_input, {
+    if(exists("sn")){
+      print("Unloading old dataset")
+      rm(sn, inherits = TRUE) 
+    }
+    print("Loading new dataset")
+    loadNewDataset(input$singlecell_dataset_input)
+  })
   
   # Create UMAP plot
   createUMAP <- eventReactive(input$plot_singlecell, {
-    sn <- loadSet()
+    sn <- get("sn", inherits = TRUE)
+    
+    print(head(sn))
+    
     # Merge cluster and metadata
     umap_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
