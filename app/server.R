@@ -1723,9 +1723,14 @@ shinyServer(function(input, output, session){
     return(gene_list)
   }
   
+  loadSet <- function(){
+    set <- loadSingleCellData(paste0("./RData/BroadFormat/", input$singlecell_dataset_input))
+    return(set)
+  }
+  
   # Create UMAP plot
   createUMAP <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+    sn <- loadSet()
     # Merge cluster and metadata
     umap_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
@@ -1753,6 +1758,8 @@ shinyServer(function(input, output, session){
     }
     
     plot <- ggplotly(plot)
+    
+    rm(sn)
     
     return(plot)
   })
@@ -1914,6 +1921,7 @@ shinyServer(function(input, output, session){
     plot <- dittoHeatmap_modified(data)
     return(plot)
   })
+  
   
   # Output UMAP
   output$UMAP <- renderPlotly({
