@@ -5,6 +5,7 @@
 source("./build_dataframes.R")
 source("./tzheatmap.R")
 source("./tzGSEA.R")
+source("./dittoHeatmap_modified.R")
 
 #' The server function. Run once per session.
 #' 
@@ -1852,14 +1853,16 @@ shinyServer(function(input, output, session){
     colnames(data_long) <- c("GENE", "NAME", "VALUE")
     data_long <- as.data.frame(merge(data_long, sn$meta, by = "NAME"))
     
+    print(head(data_long))
+    
     # Count number of zeros and number of nonzeros grouped by gene and celltype 
     nonzeros <- data_long %>% 
       group_by(GENE, across(all_of(input$singlecell_metadata_select))) %>% 
       summarise(percent_expressed = (1 - (sum(VALUE == 0)/(sum(VALUE > 0) + sum(VALUE == 0)))) * 100, avg_value = mean(VALUE))
     
-    nonzeros <- drop_na(nonzeros)
-    
     print(head(nonzeros))
+    
+    nonzeros <- drop_na(nonzeros)
     
     saveRDS(nonzeros, 'C:\\Users\\Jack\\Desktop\\nonzeros.rds')
     
@@ -1872,6 +1875,43 @@ shinyServer(function(input, output, session){
     
     plot <- ggplotly(plot)
     
+    return(plot)
+  })
+  
+  # Create Sample Makup Plot
+  createSampleMakeupPlot <- eventReactive(input$plot_singlecell, {
+    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+    sample_makeup_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
+    
+    d <- sample_makeup_dataframe[, c("treatment", "celltype")]
+    d2 <- d %>%
+      group_by(.data[[input$singlecell_metadata_select]], celltype) %>%
+      summarise(count = n()) %>%
+      mutate(perc = count/sum(count))
+    
+    ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
+      geom_bar(stat = 'identity', width = 0.7)
+  })
+  
+  # Create Gene Expression Heatmap
+  createGeneExpressionHeatmap <- eventReactive(input$plot_singlecell, {
+    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+    
+    gene_list <- create_singlecell_genelist()
+    gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
+    colnames(gene_df) <- c("GENE", "NAME", "VALUE")
+    
+    data <- spread(gene_df, GENE, VALUE)
+    data[is.na(data)] <- 0
+    
+    print(head(data))
+    
+    data <- data[1:50,]
+    row.names(data) <- data$NAME
+    data <- data[,3:ncol(data)]
+    data <- t(data)
+    
+    plot <- dittoHeatmap_modified(data)
     return(plot)
   })
   
@@ -1902,6 +1942,18 @@ shinyServer(function(input, output, session){
   # Output Dot plot
   output$DotPlot <- renderPlotly({
     plot <- createDotPlot()
+    plot
+  })
+  
+  # Output Sample Makeup plot
+  output$SampleMakeupPlot <- renderPlot({
+    plot <- createSampleMakeupPlot()
+    plot
+  })
+  
+  # Output Gene Expression Heatmap
+  output$GeneExpressionHeatmap <- renderPlot({
+    plot <- createGeneExpressionHeatmap()
     plot
   })
   
