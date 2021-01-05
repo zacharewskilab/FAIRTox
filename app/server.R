@@ -1809,7 +1809,6 @@ shinyServer(function(input, output, session){
   
   # Create Feature plot
   createFeaturePlot <- function(sn){
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1836,7 +1835,6 @@ shinyServer(function(input, output, session){
   
   # Create Ridge plot
   createRidgePlot <- function(sn){
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1859,7 +1857,6 @@ shinyServer(function(input, output, session){
   
   # Create Violin plot
   createViolinPlot <- function(sn){
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1868,6 +1865,8 @@ shinyServer(function(input, output, session){
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     # Merge on barcode
     gene_df <- merge(gene_df, sn$meta, by = "NAME")
+    
+    print(colnames(gene_df))
     
     # Create Plot
     plot <- ggplot(gene_df, aes(x = as.factor(.data[[input$singlecell_metadata_select]]), y = as.numeric(as.vector(VALUE)), color = as.factor(.data[[input$singlecell_metadata_select]]))) +
@@ -1883,7 +1882,6 @@ shinyServer(function(input, output, session){
   
   # Create Dot plot
   createDotPlot <- function(sn){
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1930,7 +1928,6 @@ shinyServer(function(input, output, session){
   
   # Create Sample Makup Plot
   createSampleMakeupPlot <- function(sn){
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
     sample_makeup_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
     d <- sample_makeup_dataframe[, c("treatment", "celltype")]
@@ -1945,8 +1942,6 @@ shinyServer(function(input, output, session){
   
   # Create Gene Expression Heatmap
   createGeneExpressionHeatmap <- function(sn){
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
-    
     gene_list <- create_singlecell_genelist()
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
