@@ -1908,18 +1908,12 @@ shinyServer(function(input, output, session){
       group_by(GENE, across(all_of(input$singlecell_metadata_select))) %>% 
       summarise(percent_expressed = (1 - (sum(VALUE == 0)/(sum(VALUE > 0) + sum(VALUE == 0)))) * 100, avg_value = mean(VALUE))
     
-    print(head(nonzeros))
-    
     nonzeros <- drop_na(nonzeros)
-    
-    saveRDS(nonzeros, 'C:\\Users\\Jack\\Desktop\\nonzeros.rds')
     
     # Create plot
     plot <- ggplot(data = nonzeros, mapping = aes_string(x = 'GENE', y = 'celltype')) +
       geom_point(mapping = aes_string(size = 'percent_expressed', color = "avg_value")) +
-      #scale.func(range = c(0, dot.scale), limits = c(scale.min, scale.max)) +
       theme(axis.title.x = element_blank(), axis.title.y = element_blank())
-      #guides(size = guide_legend(title = 'Percent Expressed'))
     
     plot <- ggplotly(plot)
     
@@ -1928,52 +1922,62 @@ shinyServer(function(input, output, session){
   
   # Create Sample Makup Plot
   createSampleMakeupPlot <- function(sn){
+    # Merge metadata onto dataframe by sample name
     sample_makeup_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
+    # Select relevant columns
     d <- sample_makeup_dataframe[, c("treatment", "celltype")]
+    
+    # Group by user input metadata and calculate percent sample makeup for each
     d2 <- d %>%
       group_by(.data[[input$singlecell_metadata_select]], celltype) %>%
       summarise(count = n()) %>%
       mutate(perc = count/sum(count))
     
-    ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
+    # Create plot
+    plot <- ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
       geom_bar(stat = 'identity', width = 0.7)
+    return(plot)
   }
   
   # Create Gene Expression Heatmap
   createGeneExpressionHeatmap <- function(sn){
+    # Read in user input gene list
     gene_list <- create_singlecell_genelist()
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     
+    # Convert data from long to wide and replace NA's with zeros
     data <- spread(gene_df, GENE, VALUE)
     data[is.na(data)] <- 0
     
-    print(head(data))
-    
-    data <- data[1:50,]
+    # Transform data into compatible form
+    #data <- data[1:50,]
     row.names(data) <- data$NAME
     data <- data[,3:ncol(data)]
     data <- t(data)
     
+    # Create plot
     plot <- dittoHeatmap_modified(data)
     return(plot)
   }
   
+  # Filter possible datasets and return those that match metadata selection
   sc_description_maker <- eventReactive(c(input$singlecell_species_select, input$singlecell_sex_select),{
     choices <- sc_dataset_meta %>% filter(Species_common %in% input$singlecell_species_select, Sex %in% input$singlecell_sex_select)
     result <- choices$Project_ID
     return(result)
   })
   
+  # Create table of possible datasets that match metadata selection and output associated html
   output$singlecell_dataset_choices <- renderTable({
     result <- sc_description_maker()
-    print(result)
     lapply(1:length(result), function(i) {
       output[[paste0('sc_description', i)]] <- renderUI({
         includeHTML(paste0("C:\\Users\\Jack\\Desktop\\FAIRTox_github\\app\\www\\", result[i], ".html"))
       })
     })
+    print(result)
   })
   
   # Hide/show divs based on what tab is selected
