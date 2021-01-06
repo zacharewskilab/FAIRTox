@@ -1723,9 +1723,83 @@ shinyServer(function(input, output, session){
     return(gene_list)
   }
   
+  # Ensure only one dataset is loaded at a time by unloading the old before loading the new
+  observeEvent(input$singlecell_dataset_input, {
+    if(exists("sn")){
+      print("Unloading old dataset")
+      rm(sn, inherits = TRUE) 
+    }
+    print("Loading new dataset")
+    loadNewDataset(input$singlecell_dataset_input)
+  })
+  
+  # Load the new dataset and replot
+  loadNewDataset <- function(dataset){
+    # Load dataset
+    sn <- loadSingleCellData(paste0("./RData/BroadFormat/", dataset))
+    
+    # Output metadata choices
+    output$singlecell_metadata_select <- renderUI({
+      selectInput("singlecell_metadata_select", "Select metadata to group by:", choices = colnames(sn$meta)[2:ncol(sn$meta)],
+                  selected = "celltype", multiple = FALSE) 
+    })
+    # Output metadata choices (Feature plot only)
+    output$singlecell_metadata_select_feature <- renderUI({
+      selectInput("singlecell_metadata_select_feature", "Select metadata to group by:", choices = c("GENE", colnames(sn$meta)[2:ncol(sn$meta)]),
+                  selected = "GENE", multiple = FALSE)
+    })
+    # Output color by choices (UMAP only)
+    output$UMAP_color_by_select <- renderUI({
+      selectInput("UMAP_color_by_select" , "Select metadata to color by:", choices = colnames(sn$meta[2:ncol(sn$meta)]), 
+                  selected = "celltype", multiple = FALSE)
+    })
+    # Output group by choices (UMAP only)
+    output$UMAP_label_by_select <- renderUI({
+      selectInput("UMAP_label_by_select", label = "Select metadata to label by:", choices = c("None", colnames(sn$meta[2:ncol(sn$meta)])), 
+                  selected = "None", multiple = FALSE)
+    })
+    
+    # Output UMAP
+    output$UMAP <- renderPlotly({
+      plot <- createUMAP(sn)
+      plot
+    })
+    # Output Feature plot
+    output$FeaturePlot <- renderPlotly({
+      plot <- createFeaturePlot(sn)
+      plot <- plot %>% layout(autosize = FALSE, width = 1300, height = 900)
+    })
+    # Output Ridge plot
+    output$RidgePlot <- renderPlot({
+      plot <- createRidgePlot(sn)
+      plot
+    })
+    # Output Violin plot
+    output$ViolinPlot <- renderPlot({
+      plot <- createViolinPlot(sn)
+      plot
+    })
+    # Output Dot plot
+    output$DotPlot <- renderPlotly({
+      plot <- createDotPlot(sn)
+      plot
+    })
+    # Output Sample Makeup plot
+    output$SampleMakeupPlot <- renderPlot({
+      plot <- createSampleMakeupPlot(sn)
+      plot
+    })
+    # Output Gene Expression Heatmap
+    output$GeneExpressionHeatmap <- renderPlot({
+      plot <- createGeneExpressionHeatmap(sn)
+      plot
+    })
+    
+    return(sn)
+  }
+  
   # Create UMAP plot
-  createUMAP <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+  createUMAP <- function(sn){
     # Merge cluster and metadata
     umap_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
@@ -1734,7 +1808,7 @@ shinyServer(function(input, output, session){
     }
     
     # Plot
-    if(input$UMAP_label_by_input == "None"){
+    if(input$UMAP_label_by_select == "None"){
       plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]))) + 
         geom_point(size = 0.1) +
         xlab("UMAP1") +
@@ -1743,7 +1817,7 @@ shinyServer(function(input, output, session){
         theme_bw()
     }
     else{
-      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]), label = as.factor(.data[[input$UMAP_label_by_input]]))) + 
+      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]), label = as.factor(.data[[input$UMAP_label_by_select]]))) + 
               geom_point(size = 0.1) +
               geom_text(check_overlap = TRUE) +
               xlab("UMAP1") +
@@ -1755,11 +1829,10 @@ shinyServer(function(input, output, session){
     plot <- ggplotly(plot)
     
     return(plot)
-  })
+  }
   
   # Create Feature plot
-  createFeaturePlot <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+  createFeaturePlot <- function(sn){
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1782,11 +1855,10 @@ shinyServer(function(input, output, session){
     plot <- ggplotly(plot)
     
     return(plot)
-  })
+  }
   
   # Create Ridge plot
-  createRidgePlot <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+  createRidgePlot <- function(sn){
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1805,11 +1877,10 @@ shinyServer(function(input, output, session){
             theme_bw()
     
     return(plot)
-  })
+  }
   
   # Create Violin plot
-  createViolinPlot <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+  createViolinPlot <- function(sn){
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1818,6 +1889,8 @@ shinyServer(function(input, output, session){
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     # Merge on barcode
     gene_df <- merge(gene_df, sn$meta, by = "NAME")
+    
+    print(colnames(gene_df))
     
     # Create Plot
     plot <- ggplot(gene_df, aes(x = as.factor(.data[[input$singlecell_metadata_select]]), y = as.numeric(as.vector(VALUE)), color = as.factor(.data[[input$singlecell_metadata_select]]))) +
@@ -1829,11 +1902,10 @@ shinyServer(function(input, output, session){
       theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "none")
     
     return(plot)
-  })
+  }
   
   # Create Dot plot
-  createDotPlot <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+  createDotPlot <- function(sn){
     # Read in gene list from user
     gene_list <- create_singlecell_genelist()
     
@@ -1860,117 +1932,76 @@ shinyServer(function(input, output, session){
       group_by(GENE, across(all_of(input$singlecell_metadata_select))) %>% 
       summarise(percent_expressed = (1 - (sum(VALUE == 0)/(sum(VALUE > 0) + sum(VALUE == 0)))) * 100, avg_value = mean(VALUE))
     
-    print(head(nonzeros))
-    
     nonzeros <- drop_na(nonzeros)
-    
-    saveRDS(nonzeros, 'C:\\Users\\Jack\\Desktop\\nonzeros.rds')
     
     # Create plot
     plot <- ggplot(data = nonzeros, mapping = aes_string(x = 'GENE', y = 'celltype')) +
       geom_point(mapping = aes_string(size = 'percent_expressed', color = "avg_value")) +
-      #scale.func(range = c(0, dot.scale), limits = c(scale.min, scale.max)) +
       theme(axis.title.x = element_blank(), axis.title.y = element_blank())
-      #guides(size = guide_legend(title = 'Percent Expressed'))
     
     plot <- ggplotly(plot)
     
     return(plot)
-  })
+  }
   
   # Create Sample Makup Plot
-  createSampleMakeupPlot <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
+  createSampleMakeupPlot <- function(sn){
+    # Merge metadata onto dataframe by sample name
     sample_makeup_dataframe <- merge(sn$umap, sn$meta, by = "NAME")
     
+    # Select relevant columns
     d <- sample_makeup_dataframe[, c("treatment", "celltype")]
+    
+    # Group by user input metadata and calculate percent sample makeup for each
     d2 <- d %>%
       group_by(.data[[input$singlecell_metadata_select]], celltype) %>%
       summarise(count = n()) %>%
       mutate(perc = count/sum(count))
     
-    ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
+    # Create plot
+    plot <- ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
       geom_bar(stat = 'identity', width = 0.7)
-  })
+    return(plot)
+  }
   
   # Create Gene Expression Heatmap
-  createGeneExpressionHeatmap <- eventReactive(input$plot_singlecell, {
-    sn <- get(paste0("sn_", input$singlecell_dataset_input))
-    
+  createGeneExpressionHeatmap <- function(sn){
+    # Read in user input gene list
     gene_list <- create_singlecell_genelist()
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     
+    # Convert data from long to wide and replace NA's with zeros
     data <- spread(gene_df, GENE, VALUE)
     data[is.na(data)] <- 0
     
-    print(head(data))
-    
-    data <- data[1:50,]
+    # Transform data into compatible form
+    #data <- data[1:50,]
     row.names(data) <- data$NAME
     data <- data[,3:ncol(data)]
     data <- t(data)
     
+    # Create plot
     plot <- dittoHeatmap_modified(data)
     return(plot)
-  })
+  }
   
-  # Output UMAP
-  output$UMAP <- renderPlotly({
-    plot <- createUMAP()
-    plot
-  })
-  
-  # Output Feature plot
-  output$FeaturePlot <- renderPlotly({
-    plot <- createFeaturePlot()
-    plot
-  })
-  
-  # Output Ridge plot
-  output$RidgePlot <- renderPlot({
-    plot <- createRidgePlot()
-    plot
-  },)
-  
-  # Output Violin plot
-  output$ViolinPlot <- renderPlot({
-    plot <- createViolinPlot()
-    plot
-  })
-  
-  # Output Dot plot
-  output$DotPlot <- renderPlotly({
-    plot <- createDotPlot()
-    plot
-  })
-  
-  # Output Sample Makeup plot
-  output$SampleMakeupPlot <- renderPlot({
-    plot <- createSampleMakeupPlot()
-    plot
-  })
-  
-  # Output Gene Expression Heatmap
-  output$GeneExpressionHeatmap <- renderPlot({
-    plot <- createGeneExpressionHeatmap()
-    plot
-  })
-  
+  # Filter possible datasets and return those that match metadata selection
   sc_description_maker <- eventReactive(c(input$singlecell_species_select, input$singlecell_sex_select),{
     choices <- sc_dataset_meta %>% filter(Species_common %in% input$singlecell_species_select, Sex %in% input$singlecell_sex_select)
     result <- choices$Project_ID
     return(result)
   })
   
+  # Create table of possible datasets that match metadata selection and output associated html
   output$singlecell_dataset_choices <- renderTable({
     result <- sc_description_maker()
-    print(result)
     lapply(1:length(result), function(i) {
       output[[paste0('sc_description', i)]] <- renderUI({
         includeHTML(paste0("C:\\Users\\Jack\\Desktop\\FAIRTox_github\\app\\www\\", result[i], ".html"))
       })
     })
+    print(result)
   })
   
   # Hide/show divs based on what tab is selected
