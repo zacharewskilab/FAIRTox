@@ -1735,8 +1735,30 @@ shinyServer(function(input, output, session){
   
   # Load the new dataset and replot
   loadNewDataset <- function(dataset){
+    # Load dataset
     sn <- loadSingleCellData(paste0("./RData/BroadFormat/", dataset))
-    print(head(sn))
+    
+    # Output metadata choices
+    output$singlecell_metadata_select <- renderUI({
+      selectInput("singlecell_metadata_select", "Select metadata to group by:", choices = colnames(sn$meta)[2:ncol(sn$meta)],
+                  selected = "celltype", multiple = FALSE) 
+    })
+    # Output metadata choices (Feature plot only)
+    output$singlecell_metadata_select_feature <- renderUI({
+      selectInput("singlecell_metadata_select_feature", "Select metadata to group by:", choices = c("GENE", colnames(sn$meta)[2:ncol(sn$meta)]),
+                  selected = "GENE", multiple = FALSE)
+    })
+    # Output color by choices (UMAP only)
+    output$UMAP_color_by_select <- renderUI({
+      selectInput("UMAP_color_by_select" , "Select metadata to color by:", choices = colnames(sn$meta[2:ncol(sn$meta)]), 
+                  selected = "celltype", multiple = FALSE)
+    })
+    # Output group by choices (UMAP only)
+    output$UMAP_label_by_select <- renderUI({
+      selectInput("UMAP_label_by_select", label = "Select metadata to label by:", choices = c("None", colnames(sn$meta[2:ncol(sn$meta)])), 
+                  selected = "None", multiple = FALSE)
+    })
+    
     # Output UMAP
     output$UMAP <- renderPlotly({
       plot <- createUMAP(sn)
@@ -1745,7 +1767,7 @@ shinyServer(function(input, output, session){
     # Output Feature plot
     output$FeaturePlot <- renderPlotly({
       plot <- createFeaturePlot(sn)
-      plot
+      plot <- plot %>% layout(autosize = FALSE, width = 1300, height = 900)
     })
     # Output Ridge plot
     output$RidgePlot <- renderPlot({
@@ -1772,6 +1794,8 @@ shinyServer(function(input, output, session){
       plot <- createGeneExpressionHeatmap(sn)
       plot
     })
+    
+    return(sn)
   }
   
   # Create UMAP plot
@@ -1784,7 +1808,7 @@ shinyServer(function(input, output, session){
     }
     
     # Plot
-    if(input$UMAP_label_by_input == "None"){
+    if(input$UMAP_label_by_select == "None"){
       plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]))) + 
         geom_point(size = 0.1) +
         xlab("UMAP1") +
@@ -1793,7 +1817,7 @@ shinyServer(function(input, output, session){
         theme_bw()
     }
     else{
-      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]), label = as.factor(.data[[input$UMAP_label_by_input]]))) + 
+      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]), label = as.factor(.data[[input$UMAP_label_by_select]]))) + 
               geom_point(size = 0.1) +
               geom_text(check_overlap = TRUE) +
               xlab("UMAP1") +
