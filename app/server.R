@@ -1729,8 +1729,11 @@ shinyServer(function(input, output, session){
       print("Unloading old dataset")
       rm(sn, inherits = TRUE) 
     }
-    print("Loading new dataset")
-    loadNewDataset(input$singlecell_dataset_input)
+    
+    if(input$singlecell_dataset_input != ""){
+      print("Loading new dataset")
+      loadNewDataset(input$singlecell_dataset_input)
+    }
   })
   
   # Load the new dataset and replot
@@ -1793,7 +1796,7 @@ shinyServer(function(input, output, session){
     output$GeneExpressionHeatmap <- renderPlot({
       plot <- createGeneExpressionHeatmap(sn)
       plot
-    })
+    }, width = 1300, height = 900)
     
     return(sn)
   }
@@ -1976,7 +1979,7 @@ shinyServer(function(input, output, session){
     data[is.na(data)] <- 0
     
     # Transform data into compatible form
-    #data <- data[1:50,]
+    data <- data[1:50,]
     row.names(data) <- data$NAME
     data <- data[,3:ncol(data)]
     data <- t(data)
@@ -1990,6 +1993,11 @@ shinyServer(function(input, output, session){
   sc_description_maker <- eventReactive(c(input$singlecell_species_select, input$singlecell_sex_select),{
     choices <- sc_dataset_meta %>% filter(Species_common %in% input$singlecell_species_select, Sex %in% input$singlecell_sex_select)
     result <- choices$Project_ID
+    
+    output$singlecell_dataset_input <- renderUI({
+      selectInput(inputId = "singlecell_dataset_input", label = "Select Dataset:", choices = c(result), multiple = FALSE)
+    })
+    
     return(result)
   })
   
