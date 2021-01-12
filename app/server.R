@@ -1729,8 +1729,7 @@ shinyServer(function(input, output, session){
       print("Unloading old dataset")
       rm(sn, inherits = TRUE) 
     }
-    
-    if(input$singlecell_dataset_input != ""){
+    if(length(input$inglecell_dataset_input) > 0){
       print("Loading new dataset")
       loadNewDataset(input$singlecell_dataset_input)
     }
@@ -2006,10 +2005,9 @@ shinyServer(function(input, output, session){
     result <- sc_description_maker()
     lapply(1:length(result), function(i) {
       output[[paste0('sc_description', i)]] <- renderUI({
-        includeHTML(paste0("C:\\Users\\Jack\\Desktop\\FAIRTox_github\\app\\www\\", result[i], ".html"))
+        includeHTML(paste0("./RData/BroadFormat/", result[i], "/description.html"))
       })
     })
-    print(result)
   })
   
   # Hide/show divs based on what tab is selected

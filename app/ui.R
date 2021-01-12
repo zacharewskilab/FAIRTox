@@ -518,11 +518,7 @@ ui <- function(request){
                         actionButton(inputId = "singlecell_reset_file_input", label = "Clear file selection"),
                         HTML('<hr background-color="#000000" color = "#000000">')
                       )
-                    ),
-                    # div(id = "singlecell_plot_button",
-                    #     br(),
-                    #     actionButton(inputId = "plot_singlecell", label = "Plot")
-                    # )
+                    )
                 )
               ),
               column(1,
