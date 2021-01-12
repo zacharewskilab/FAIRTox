@@ -1740,22 +1740,26 @@ shinyServer(function(input, output, session){
     
     # Output metadata choices
     output$singlecell_metadata_select <- renderUI({
-      selectInput("singlecell_metadata_select", "Select metadata to group by:", choices = colnames(sn$meta)[2:ncol(sn$meta)],
+      selectInput("singlecell_metadata_select", "Select metadata to group by:", 
+                  choices = colnames(sn$meta)[2:ncol(sn$meta)],
                   selected = "celltype", multiple = FALSE) 
     })
     # Output metadata choices (Feature plot only)
     output$singlecell_metadata_select_feature <- renderUI({
-      selectInput("singlecell_metadata_select_feature", "Select metadata to group by:", choices = c("GENE", colnames(sn$meta)[2:ncol(sn$meta)]),
+      selectInput("singlecell_metadata_select_feature", "Select metadata to group by:", 
+                  choices = c("GENE", colnames(sn$meta)[2:ncol(sn$meta)]),
                   selected = "GENE", multiple = FALSE)
     })
     # Output color by choices (UMAP only)
     output$UMAP_color_by_select <- renderUI({
-      selectInput("UMAP_color_by_select" , "Select metadata to color by:", choices = colnames(sn$meta[2:ncol(sn$meta)]), 
+      selectInput("UMAP_color_by_select" , "Select metadata to color by:", 
+                  choices = colnames(sn$meta[2:ncol(sn$meta)]), 
                   selected = "celltype", multiple = FALSE)
     })
     # Output group by choices (UMAP only)
     output$UMAP_label_by_select <- renderUI({
-      selectInput("UMAP_label_by_select", label = "Select metadata to label by:", choices = c("None", colnames(sn$meta[2:ncol(sn$meta)])), 
+      selectInput("UMAP_label_by_select", label = "Select metadata to label by:", 
+                  choices = c("None", colnames(sn$meta[2:ncol(sn$meta)])), 
                   selected = "None", multiple = FALSE)
     })
     
@@ -1809,7 +1813,9 @@ shinyServer(function(input, output, session){
     
     # Plot
     if(input$UMAP_label_by_select == "None"){
-      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]))) + 
+      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), 
+                                         y = as.numeric(as.vector(Y)), 
+                                         color = as.factor(.data[[input$UMAP_color_by_select]]))) + 
         geom_point(size = 0.1) +
         xlab("UMAP1") +
         ylab("UMAP2") +
@@ -1817,7 +1823,10 @@ shinyServer(function(input, output, session){
         theme_bw()
     }
     else{
-      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.factor(.data[[input$UMAP_color_by_select]]), label = as.factor(.data[[input$UMAP_label_by_select]]))) + 
+      plot <- ggplot(umap_dataframe, aes(x = as.numeric(as.vector(X)), 
+                                         y = as.numeric(as.vector(Y)), 
+                                         color = as.factor(.data[[input$UMAP_color_by_select]]), 
+                                         label = as.factor(.data[[input$UMAP_label_by_select]]))) + 
               geom_point(size = 0.1) +
               geom_text(check_overlap = TRUE) +
               xlab("UMAP1") +
@@ -1844,7 +1853,9 @@ shinyServer(function(input, output, session){
     gene_df <- merge(gene_df, sn$meta, by = "NAME")
     
     # Create Plot
-    plot <- ggplot(gene_df) + geom_point(aes(x = as.numeric(as.vector(X)), y = as.numeric(as.vector(Y)), color = as.numeric(as.vector(VALUE))), size = 0.1) +
+    plot <- ggplot(gene_df) + geom_point(aes(x = as.numeric(as.vector(X)), 
+                                             y = as.numeric(as.vector(Y)), 
+                                             color = as.numeric(as.vector(VALUE))), size = 0.1) +
             scale_color_gradient2(low = 'lightgrey', mid = 'grey', high = '#1908ff') +
             facet_wrap(~as.factor(.data[[input$singlecell_metadata_select_feature]])) +
             xlab("UMAP1") +
@@ -1869,7 +1880,9 @@ shinyServer(function(input, output, session){
     gene_df <- merge(gene_df, sn$meta, by = "NAME")
 
     # Create plot
-    plot <- ggplot(gene_df, aes(x = as.numeric(as.vector(VALUE)), y = as.factor(.data[[input$singlecell_metadata_select]]), fill = as.factor(.data[[input$singlecell_metadata_select]]))) + 
+    plot <- ggplot(gene_df, aes(x = as.numeric(as.vector(VALUE)), 
+                                y = as.factor(.data[[input$singlecell_metadata_select]]), 
+                                fill = as.factor(.data[[input$singlecell_metadata_select]]))) + 
             geom_density_ridges(show.legend = FALSE) +
             facet_wrap(~GENE) + 
             xlab("Normalized Expression") + 
@@ -1893,7 +1906,9 @@ shinyServer(function(input, output, session){
     print(colnames(gene_df))
     
     # Create Plot
-    plot <- ggplot(gene_df, aes(x = as.factor(.data[[input$singlecell_metadata_select]]), y = as.numeric(as.vector(VALUE)), color = as.factor(.data[[input$singlecell_metadata_select]]))) +
+    plot <- ggplot(gene_df, aes(x = as.factor(.data[[input$singlecell_metadata_select]]), 
+                                y = as.numeric(as.vector(VALUE)), 
+                                color = as.factor(.data[[input$singlecell_metadata_select]]))) +
       geom_violin() + 
       geom_jitter(shape = 16, position = position_jitter(0.2)) +
       facet_wrap(~GENE) +
@@ -1959,7 +1974,8 @@ shinyServer(function(input, output, session){
       mutate(perc = count/sum(count))
     
     # Create plot
-    plot <- ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), y = perc*100, fill = factor(celltype))) +
+    plot <- ggplot(d2, aes(x = factor(.data[[input$singlecell_metadata_select]]), 
+                           y = perc*100, fill = factor(celltype))) +
       geom_bar(stat = 'identity', width = 0.7)
     return(plot)
   }
