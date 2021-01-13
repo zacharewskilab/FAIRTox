@@ -495,7 +495,7 @@ ui <- function(request){
               column(2,
                 wellPanel(id = "singlecell_left_panel", style = "background: #919191",
                     div(id = "singlecell_select_dataset",
-                      selectInput(inputId = "singlecell_dataset_input", label = "Select Dataset:", choices = c("Large", "Small"), selected = "Small", multiple = FALSE),
+                      uiOutput("singlecell_dataset_input"),
                       checkboxGroupInput(inputId = "singlecell_species_select", label = "Select species to show:", choices = unique(sc_dataset_meta$Species_common)),
                       checkboxGroupInput(inputId = "singlecell_sex_select", label = "Select sex to show:", choices = unique(sc_dataset_meta$Sex)),
                       tableOutput("singlecell_dataset_choices")
@@ -518,11 +518,7 @@ ui <- function(request){
                         actionButton(inputId = "singlecell_reset_file_input", label = "Clear file selection"),
                         HTML('<hr background-color="#000000" color = "#000000">')
                       )
-                    ),
-                    # div(id = "singlecell_plot_button",
-                    #     br(),
-                    #     actionButton(inputId = "plot_singlecell", label = "Plot")
-                    # )
+                    )
                 )
               ),
               column(1,
