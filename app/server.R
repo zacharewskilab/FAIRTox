@@ -2009,6 +2009,8 @@ shinyServer(function(input, output, session){
     data <- data[,3:ncol(data)]
     data <- t(data)
     
+    
+    # TODO: Figure out discrepancy in df lengths s.t. annotation_col parameter may be used in plotting
     hm_meta <- hm_meta %>% filter(NAME %in% unique(colnames(data)))
     print(head(hm_meta))
     print(nrow(hm_meta))
