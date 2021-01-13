@@ -1729,7 +1729,7 @@ shinyServer(function(input, output, session){
       print("Unloading old dataset")
       rm(sn, inherits = TRUE) 
     }
-    if(length(input$inglecell_dataset_input) > 0){
+    if(input$singlecell_dataset_input != ""){
       print("Loading new dataset")
       loadNewDataset(input$singlecell_dataset_input)
     }
@@ -2008,6 +2008,7 @@ shinyServer(function(input, output, session){
         includeHTML(paste0("./RData/BroadFormat/", result[i], "/description.html"))
       })
     })
+    print(result)
   })
   
   # Hide/show divs based on what tab is selected
