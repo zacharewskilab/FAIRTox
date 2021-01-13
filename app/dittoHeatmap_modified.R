@@ -24,7 +24,7 @@ dittoHeatmap_modified <- function(
   data.out=FALSE,
   highlight.features = NULL,
   highlight.genes = NULL, 
-  show_colnames = isBulk(object),
+  show_colnames = FALSE,
   show_rownames = TRUE,
   scale = "row",
   cluster_cols = isBulk(object),
