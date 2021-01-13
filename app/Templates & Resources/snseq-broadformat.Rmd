@@ -1,0 +1,131 @@
+---
+title: "Conversion of Seurat to Broad single-cell portal format"
+output: html_notebook
+---
+
+Load required libraries Seurat and glmnet.
+- Seurat: load actual single-cell/nuclei data
+- glmnet: functions to handle sparse matrices
+```{r}
+library(Seurat)
+library(glmnet)
+#Load Seurat object after this and name it seu.obj
+```
+
+Create the umap coordinate file
+```{r}
+umap = data.frame(seu.obj@reductions$umap@cell.embeddings)
+umap_cluster_file <- data.frame("NAME" = c('TYPE', row.names(umap)), "X" = c('numeric', umap$UMAP_1), "Y" = c('numeric', umap$UMAP_2))
+
+write.table(umap_cluster_file, file = 'umap_cluster_file.txt', quote = FALSE, sep = '\t', row.names = FALSE)
+```
+
+Creat the PCA coordinate file
+```{r}
+pca = data.frame(seu.obj@reductions$pca@cell.embeddings)
+col.order = colnames(pca)
+pca$NAME = rownames(pca)
+pca = pca[,c('NAME', col.order)]
+pca.ndims = ncol(pca)
+pca_cluster_file = rbind(c('TYPE', rep('numeric', pca.ndims)), pca)
+
+write.table(pca_cluster_file, file = 'pca_cluster_file.txt', quote = FALSE, sep = '\t', row.names = FALSE)
+```
+
+Create the metadata file
+```{r}
+metadata = seu.obj@meta.data
+metadata$NAME = rownames(metadata)
+metadata = data.frame(lapply(metadata, as.character), stringsAsFactors=FALSE)
+pred.scores = colnames(metadata)[grepl('prediction.score', colnames(metadata))]
+integrated.res = colnames(metadata)[grepl('integrated_snn', colnames(metadata))]
+
+#####
+#metadata = metadata[ ,c('NAME', 'orig.ident', 'nCount_RNA', 'nFeature_RNA', 'percent.mt', 'treatment', 'batch_ID', 'ident', 'celltype', 'celltype.ontology', 'celltype.treatment', pred.scores, integrated.res)]
+
+####
+metadata = metadata[ ,c('NAME', 'orig.ident', 'nCount_RNA', 'nFeature_RNA', 'percent.mt', 'Dose', 'X10XBatch', 'SeqBatch', 'ident', 'new.cell.type', pred.scores, integrated.res)]
+metadata.type = t(data.frame(c('TYPE', 'group', 'numeric', 'numeric', 'numeric', 'group', 'group', 'group', 'group', 'group', rep('numeric', length(pred.scores) + length(integrated.res)))))
+
+
+######
+metadata = metadata[ ,c('NAME', 'orig.ident', 'nCount_RNA', 'nFeature_RNA', 'percent.mt', 'Dose', 'X10XBatch', 'SeqBatch', 'ident', 'new.cell.type', pred.scores, integrated.res)]
+metadata.type = t(data.frame(c('TYPE', 'group', 'numeric', 'numeric', 'numeric', 'group', 'group', 'group', 'group', 'group', rep('numeric', length(pred.scores) + length(integrated.res)))))
+
+
+colnames(metadata.type) = colnames(metadata)
+
+metadata = rbind(metadata.type, metadata)
+
+write.table(metadata, file = 'metadata.txt', quote = FALSE, sep = '\t', row.names = FALSE)
+```
+
+Export the sparse matrix to a file using writeMM. This can take a long time for large datasets
+```{r}
+writeMM(seu.obj@assays$RNA@data, file = 'log_norm_UMI.mtx')
+write.table(rownames(seu.obj@assays$RNA@data), file = 'genes.tsv', quote = FALSE, sep = ',', row.names = FALSE, col.names = FALSE)
+write.table(colnames(seu.obj@assays$RNA@data), file = 'barcodes.tsv', quote = FALSE, sep = ',', row.names = FALSE, col.names = FALSE)
+
+#Remove leading lines
+##  tail -n +3 log_norm_UMI.mtx > import_data.mtx
+
+#Import to SQL
+##  sqlite3 dbname.sql
+##  .separator ' '
+##  CREATE TABLE log_norm_umi (gene_row INTEGER, barcode_row INTEGER, value REAL);
+##  .import import.mtx log_norm_umi
+
+#Use python code to sort with the appropriate column. 
+```
+
+#### Analysis starts here ###
+This function loads all the single-cell data from a specified directory assuming it follows the following structure:
+- umap coordinate file is the only file with the word umap
+- metdata file is the only file with the word metadata
+- the indices for genes and barcodes have the following structure: {info}genes.txt or {info}barcodes.tsv
+- the matrix data is in SQL format and the only .sql file in the folder.
+
+Returns a list object with items $umap $meta $genes.order $barcodes.order $conn
+```{r}
+loadSingleCellData = function(directory){
+  # directory = the directory path with the single-cell data
+  sn.files = list.files(directory, full.names = TRUE)
+  umap = read.table(sn.files[grepl('umap', sn.files)], header = TRUE)[-1, ]
+  meta = read.table(sn.files[grepl('metadata', sn.files)], header = TRUE)[-1, ]
+  genes.order = read.table(sn.files[grepl('genes.tsv', sn.files)], header = FALSE)$V1
+  barcodes.order = read.table(sn.files[grepl('barcodes.tsv', sn.files)], header = FALSE)$V1
+  mtxConn = RSQLite::dbConnect(RSQLite::dbDriver("SQLite"), dbname = sn.files[grepl('.sql', sn.files)])
+  return(list(umap = umap, meta = meta, gene.order = genes.order, barcodes.order = barcodes.order, conn = mtxConn))
+}
+```
+
+This function queries gene expression values from the SQL database. 
+```{r}
+getGeneData = function(gene.list, barcode.list, scData){
+  # gene.list = the genes of interest (e.g. c('Cyp1a1', 'Cyp1a2', ...))
+  # barcode.list = the barcodes of interest. For all barcodes use {loaded-data}$barcodes.order
+  # scData = the list object from the loadSingleCellData function
+  genes.ind = match(gene.list, scData$gene.order)
+  barcodes.ind = match(barcode.list, scData$barcodes.order)
+  query = paste(
+    "SELECT * FROM log_norm_umi WHERE gene_row IN (",
+    paste(genes.ind, collapse = ", "),
+    ") AND barcode_row IN (",
+    paste(barcodes.ind, collapse = ", "),
+    ");",
+    sep = ''
+    )
+  gene.df = RSQLite::dbGetQuery(scData$conn, query)
+  gene.df$gene_row = scData$gene.order[gene.df$gene_row]
+  gene.df$barcode_row = scData$barcodes.order[gene.df$barcode_row]
+  return(gene.df)
+}
+```
+
+
+
+
+
+
+
+
