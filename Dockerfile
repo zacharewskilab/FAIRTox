@@ -29,11 +29,13 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
 # Install R packages that are required
 RUN R -e "install.packages('rvest')"
 RUN R -e "install.packages('BiocManager'); BiocManager::install(c('graph', 'fgsea', 'mixOmics')); install.packages(c('shiny', 'plotly', 'ggm', 'shinycssloaders', 'ggplot2', 'dplyr', 'reshape2', 'RSQLite', 'markdown', 'plyr', 'tibble', 'UpSetR', 'stringr', 'data.table', 'ggnewscale', 'V8', 'tidyverse', 'rlist', 'readxl', 'devtools', 'factoextra', 'randomcoloR', 'Seurat'), repos='http://cran.rstudio.com/', quiet = TRUE)"
-RUN R -e "devtools::install_version('shinyjs', version = '1.1')"
+#RUN R -e "devtools::install_version('shinyjs', version = '1.1')"
 RUN R -e "install.packages('reticulate')"
 RUN R -e "reticulate::install_miniconda(path = reticulate::miniconda_path(), update = TRUE, force = FALSE)"
 RUN R -e "reticulate::py_install(packages = 'umap-learn')"
 RUN R -e "install.packages('ggridges')"
+RUN R -e "install.packages('shinyjs')"
+RUN R -e "install.packages('pheatmap')"
 
 # Copy configuration files into the Docker image
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf
