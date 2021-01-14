@@ -1989,18 +1989,35 @@ shinyServer(function(input, output, session){
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     
+    hm_meta <- merge(gene_df, sn$meta, by = "NAME")
+    #print(hm_meta[1:5, 1:5])
+    
+    hm_meta <- data.frame(hm_meta[,c("NAME", "celltype")])
+    
     # Convert data from long to wide and replace NA's with zeros
     data <- spread(gene_df, GENE, VALUE)
     data[is.na(data)] <- 0
     
     # Transform data into compatible form
-    data <- data[1:50,]
+    if(input$sn_heatmap_select_num_samples == "All"){
+      data <- data
+    }
+    else{
+      data <- sample_n(data, input$sn_heatmap_select_num_samples)
+    }
     row.names(data) <- data$NAME
     data <- data[,3:ncol(data)]
     data <- t(data)
     
+    hm_meta <- hm_meta %>% filter(NAME %in% colnames(data))
+    hm_meta <- unique(hm_meta)
+    
+    hm_annotation_df <- data.frame("celltype" = hm_meta$celltype)
+    rownames(hm_annotation_df) <- unique(hm_meta$NAME)
+    
     # Create plot
-    plot <- dittoHeatmap_modified(data)
+    plot <- pheatmap(data, show_colnames = FALSE, cluster_rows = input$sn_heatmap_show_clustering,
+                     cluster_cols = input$sn_heatmap_show_clustering, annotation_col = hm_annotation_df)
     return(plot)
   }
   
@@ -2034,18 +2051,28 @@ shinyServer(function(input, output, session){
       shinyjs::show(id = "singlecell_right_panel_UMAP")
       shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
       shinyjs::hide(id = "singlecell_right_panel_feature")
+      shinyjs::hide(id = "singlecell_right_panel_heatmap")
     }
     else if(input$singlecell_tabs == "Feature Plot"){
       shinyjs::show(id = "singlecell_genelist_left_panel")
       shinyjs::hide(id = "singlecell_right_panel_UMAP")
       shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
       shinyjs::show(id = "singlecell_right_panel_feature")
+      shinyjs::hide(id = "singlecell_right_panel_heatmap")
+    }
+    else if(input$singlecell_tabs == "Gene Expression Heatmap"){
+      shinyjs::show(id = "singlecell_genelist_left_panel")
+      shinyjs::hide(id = "singlecell_right_panel_UMAP")
+      shinyjs::hide(id = "singlecell_right_panel_all_except_feature")
+      shinyjs::hide(id = "singlecell_right_panel_feature")
+      shinyjs::show(id = "singlecell_right_panel_heatmap")
     }
     else{
       shinyjs::show(id = "singlecell_genelist_left_panel")
       shinyjs::hide(id = "singlecell_right_panel_UMAP")
       shinyjs::show(id = "singlecell_right_panel_all_except_feature")
       shinyjs::hide(id = "singlecell_right_panel_feature")
+      shinyjs::hide(id = "singlecell_right_panel_heatmap")
     }
   })
   
