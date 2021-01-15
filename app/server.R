@@ -5,7 +5,6 @@
 source("./build_dataframes.R")
 source("./tzheatmap.R")
 source("./tzGSEA.R")
-source("./dittoHeatmap_modified.R")
 
 #' The server function. Run once per session.
 #' 
@@ -1764,6 +1763,12 @@ shinyServer(function(input, output, session){
                   choices = c("None", colnames(sn$meta[2:ncol(sn$meta)])), 
                   selected = "None", multiple = FALSE)
     })
+    # Output metadata choices for heatmap column annotation
+    output$sn_heatmap_select_annotation <- renderUI({
+      selectInput("sn_heatmap_select_annotation", label  = "Select column annotation metadata:",
+                  choices = colnames(sn$meta)[2:ncol(sn$meta)],
+                  selected = "celltype", multiple = FALSE)
+    })
     
     # Output UMAP
     output$UMAP <- renderPlotly({
@@ -1799,7 +1804,7 @@ shinyServer(function(input, output, session){
     output$GeneExpressionHeatmap <- renderPlot({
       plot <- createGeneExpressionHeatmap(sn)
       plot
-    }, width = 1300, height = 900)
+    }, width = 1100, height = 700)
     
     return(sn)
   }
@@ -1992,7 +1997,7 @@ shinyServer(function(input, output, session){
     hm_meta <- merge(gene_df, sn$meta, by = "NAME")
     #print(hm_meta[1:5, 1:5])
     
-    hm_meta <- data.frame(hm_meta[,c("NAME", "celltype")])
+    hm_meta <- data.frame(hm_meta[,c("NAME", input$sn_heatmap_select_annotation)])
     
     # Convert data from long to wide and replace NA's with zeros
     data <- spread(gene_df, GENE, VALUE)
@@ -2012,7 +2017,7 @@ shinyServer(function(input, output, session){
     hm_meta <- hm_meta %>% filter(NAME %in% colnames(data))
     hm_meta <- unique(hm_meta)
     
-    hm_annotation_df <- data.frame("celltype" = hm_meta$celltype)
+    hm_annotation_df <- data.frame("Annotation" = hm_meta[[input$sn_heatmap_select_annotation]])
     rownames(hm_annotation_df) <- unique(hm_meta$NAME)
     
     # Create plot
