@@ -31,7 +31,7 @@ library(ggridges) #Single cell ridge plots
 library(pheatmap) # Required for dittoHeatmap
 
 # Load Single Cell Metadata
-sc_dataset_meta <- read_excel("C:\\Users\\Jack\\Desktop\\FAIRTox_github\\app\\RData\\SingleCell_Metadata.xlsx")
+sc_dataset_meta <- read_excel("./RData/SingleCell_Metadata.xlsx")
 
 # Enable server-side bookmarking in /shinybookmarks folder
 enableBookmarking(store = "server")
