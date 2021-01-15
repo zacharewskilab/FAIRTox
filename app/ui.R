@@ -569,7 +569,8 @@ ui <- function(request){
                   ),
                   div(id = "singlecell_right_panel_heatmap",
                       checkboxInput(inputId = "sn_heatmap_show_clustering", label = "Show clustering", value = FALSE),
-                      selectInput(inputId = "sn_heatmap_select_num_samples", label = "Select number of samples to show:", choices = c("All", 5000, 500, 50), selected = 50)
+                      selectInput(inputId = "sn_heatmap_select_num_samples", label = "Select number of samples to show:", choices = c("All", 5000, 500, 50), selected = 50),
+                      uiOutput("sn_heatmap_select_annotation")
                   )
                 )
               ))
