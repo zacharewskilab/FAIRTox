@@ -1766,7 +1766,7 @@ shinyServer(function(input, output, session){
     # Output metadata choices for heatmap column annotation
     output$sn_heatmap_select_annotation <- renderUI({
       selectInput("sn_heatmap_select_annotation", label  = "Select column annotation metadata:",
-                  choices = colnames(sn$meta)[2:ncol(sn$meta)],
+                  choices = c("None", colnames(sn$meta)[2:ncol(sn$meta)]),
                   selected = "celltype", multiple = FALSE)
     })
     
@@ -1994,11 +1994,6 @@ shinyServer(function(input, output, session){
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     
-    hm_meta <- merge(gene_df, sn$meta, by = "NAME")
-    #print(hm_meta[1:5, 1:5])
-    
-    hm_meta <- data.frame(hm_meta[,c("NAME", input$sn_heatmap_select_annotation)])
-    
     # Convert data from long to wide and replace NA's with zeros
     data <- spread(gene_df, GENE, VALUE)
     data[is.na(data)] <- 0
@@ -2014,11 +2009,21 @@ shinyServer(function(input, output, session){
     data <- data[,3:ncol(data)]
     data <- t(data)
     
-    hm_meta <- hm_meta %>% filter(NAME %in% colnames(data))
-    hm_meta <- unique(hm_meta)
-    
-    hm_annotation_df <- data.frame("Annotation" = hm_meta[[input$sn_heatmap_select_annotation]])
-    rownames(hm_annotation_df) <- unique(hm_meta$NAME)
+    # Create column annotation dataframe
+    if(input$sn_heatmap_select_annotation == "None"){
+      hm_annotation_df <- NA
+    }
+    else{
+      hm_meta <- merge(gene_df, sn$meta, by = "NAME")
+      
+      hm_meta <- data.frame(hm_meta[,c("NAME", input$sn_heatmap_select_annotation)])
+      
+      hm_meta <- hm_meta %>% filter(NAME %in% colnames(data))
+      hm_meta <- unique(hm_meta)
+      
+      hm_annotation_df <- data.frame("Annotation" = hm_meta[[input$sn_heatmap_select_annotation]])
+      rownames(hm_annotation_df) <- unique(hm_meta$NAME)
+    }
     
     # Create plot
     plot <- pheatmap(data, show_colnames = FALSE, cluster_rows = input$sn_heatmap_show_clustering,
