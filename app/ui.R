@@ -566,7 +566,12 @@ ui <- function(request){
                       uiOutput("UMAP_label_by_select"),
                       selectInput(inputId = "UMAP_show_num_genes", label = "Select number of genes to show:", 
                                   choices = c("All", "500"), selected = "500", multiple = FALSE)
-                  ) 
+                  ),
+                  div(id = "singlecell_right_panel_heatmap",
+                      checkboxInput(inputId = "sn_heatmap_show_clustering", label = "Show clustering", value = FALSE),
+                      selectInput(inputId = "sn_heatmap_select_num_samples", label = "Select number of samples to show:", choices = c("All", 5000, 500, 50), selected = 50),
+                      uiOutput("sn_heatmap_select_annotation")
+                  )
                 )
               ))
             )
