@@ -74,6 +74,7 @@ shinyServer(function(input, output, session){
       scale_x_continuous(name = "Dose", breaks = unique(df$Dose), trans = XTrans) +
       scale_y_continuous(name = "Fold Change", trans = YTrans) +
       theme_bw() +
+      theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
       theme(legend.position = legend_position)
     # Faceted plot by selected metadata
     if (input$facetByInput != "None"){
@@ -86,6 +87,7 @@ shinyServer(function(input, output, session){
         scale_x_continuous(name = "Dose", breaks = unique(df$Dose), trans = XTrans) +
         scale_y_continuous(name = "Fold Change", trans = YTrans) +
         theme_bw() +
+        theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
         theme(legend.position = legend_position) +
         facet_wrap(paste0("~", input$facetByInput))
     }
@@ -97,6 +99,7 @@ shinyServer(function(input, output, session){
         scale_y_continuous(name = "Fold Change") +
         scale_fill_brewer(palette = "Set2") +
         theme_bw() +
+        theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
         theme(legend.position = legend_position) +
         facet_wrap(~Project)
       p <- ggplotly(plot, tooltip = c("y", "fill"))
@@ -237,8 +240,9 @@ shinyServer(function(input, output, session){
       scale_x_continuous(name = "Time", breaks = unique(df$TimePoint), trans = XTrans) +
       scale_y_continuous(name = "Fold Change", trans = YTrans) +
       theme_bw() +
+      theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
       theme(legend.position = legend_position)
-    # Facetting plot
+    # Faceting plot
     if (input$facetByInput != "None"){
       plot <- ggplot(data = df, mapping = aes(x = TimePoint, y = FoldChange, text = paste("Project: ", Longname))) +
         geom_line(aes(color = Project, linetype = as.factor(Organ))) +
@@ -249,6 +253,7 @@ shinyServer(function(input, output, session){
         scale_x_continuous(name = "Time", breaks = unique(df$TimePoint), trans = XTrans) +
         scale_y_continuous(name = "Fold Change", trans = YTrans) +
         theme_bw() +
+        theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
         theme(legend.position = legend_position) +
         facet_wrap(paste0("~", input$facetByInput))
     }
@@ -260,6 +265,7 @@ shinyServer(function(input, output, session){
         scale_y_continuous(name = "Fold Change") +
         scale_fill_brewer(palette = "Set2") +
         theme_bw() +
+        theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
         theme(legend.position = legend_position) +
         facet_wrap(~Project)
       p <- ggplotly(plot, tooltip = c("y", "fill"))
@@ -382,6 +388,7 @@ shinyServer(function(input, output, session){
       scale_x_continuous(name = "ZT", breaks = unique(df$ZT)) +
       scale_y_continuous(name = "Fold Change") +
       theme_bw() +
+      theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
       theme(legend.position = "none")
     
     
@@ -440,6 +447,7 @@ shinyServer(function(input, output, session){
       scale_x_continuous(name = "ZT") +
       scale_y_continuous(name = "Normalized Signal") +
       theme_bw()+
+      theme(axis.text.x=element_text(size = 18, face= "bold.italic"), axis.text.y=element_text(size = 18, face= "bold"), axis.title=element_text(size = 20, face = "bold")) +
       theme(legend.position = "none")
     
     # Plots figure
@@ -514,7 +522,9 @@ shinyServer(function(input, output, session){
     vector <- c(input$groupCountBy)
     form <- as.formula(paste("~interaction(",toString(vector),")"))
     p <- plot_ly(df, x = form, y = ~NormalizedSignal, type = "box")
-    p <- layout(p, yaxis = list(type = YTrans))
+    p <- layout(p, yaxis = list(type = YTrans)) %>%
+         layout(xaxis = list(titlefont = list(size = 18, face = "bold"), tickfont = list(size = 20)),
+                yaxis = list(titlefont = list(size = 18), tickfont = list(size = 20)))
     
     # Resizes figure
     p <- p %>% layout(autosize = F, width = as.numeric(input$BEplotExportWidth) * 96, height = as.numeric(input$BEplotExportHeight) * 96)
@@ -1280,7 +1290,7 @@ shinyServer(function(input, output, session){
     # Show/hide labels based on user
     label = "none"
     if(input$pca_show_hide_label_input){label = "all"}
-
+    
     # Plot PCA individuals (samples)
     print('plotting pca...')
     plot <- fviz_pca_ind(res.pca,
