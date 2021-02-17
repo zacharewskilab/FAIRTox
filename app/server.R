@@ -2058,7 +2058,9 @@ shinyServer(function(input, output, session){
     result <- sc_description_maker()
     lapply(1:length(result), function(i) {
       output[[paste0('sc_description', i)]] <- renderUI({
-        includeHTML(paste0("./RData/BroadFormat/", result[i], "/description.html"))
+        if(length(result) != 0){
+          includeHTML(paste0("./RData/BroadFormat/", result[i], "/description.html"))
+        }
       })
     })
     print(result)
