@@ -550,6 +550,9 @@ ui <- function(request){
                 ),
                 tabPanel("Gene Expression Heatmap",
                   withSpinner(plotOutput("GeneExpressionHeatmap"))
+                ),
+                tabPanel("Empty Tab",
+                  tags$h1("Please select metadata and dataset in right panel.")
                 )
                 )
               ),
