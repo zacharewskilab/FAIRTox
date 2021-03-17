@@ -1733,14 +1733,43 @@ shinyServer(function(input, output, session){
   }
   
   # Ensure only one dataset is loaded at a time by unloading the old before loading the new
-  observeEvent(input$singlecell_dataset_input, {
+  observeEvent(c(input$singlecell_dataset_input, input$mainTabs), {
     if(exists("sn")){
       print("Unloading old dataset")
-      rm(sn, inherits = TRUE) 
+      rm(sn, inherits = TRUE)
     }
-    if(input$singlecell_dataset_input != ""){
+    print(input$singlecell_dataset_input)
+    if(is_null(input$singlecell_dataset_input)){
+      hideTab("singlecell_tabs", target = "UMAP")
+      hideTab("singlecell_tabs", target = "Feature Plot")
+      hideTab("singlecell_tabs", target = "Ridge Plot")
+      hideTab("singlecell_tabs", target = "Violin Plot")
+      hideTab("singlecell_tabs", target = "Dot Plot")
+      hideTab("singlecell_tabs", target = "Sample Makeup Plot")
+      hideTab("singlecell_tabs", target = "Gene Expression Heatmap")
+      showTab("singlecell_tabs", target = "Empty Tab")
+    }
+    else if(input$singlecell_dataset_input == ""){
+      hideTab("singlecell_tabs", target = "UMAP")
+      hideTab("singlecell_tabs", target = "Feature Plot")
+      hideTab("singlecell_tabs", target = "Ridge Plot")
+      hideTab("singlecell_tabs", target = "Violin Plot")
+      hideTab("singlecell_tabs", target = "Dot Plot")
+      hideTab("singlecell_tabs", target = "Sample Makeup Plot")
+      hideTab("singlecell_tabs", target = "Gene Expression Heatmap")
+      showTab("singlecell_tabs", target = "Empty Tab")
+    }
+    else{
       print("Loading new dataset")
       loadNewDataset(input$singlecell_dataset_input)
+      showTab("singlecell_tabs", target = "UMAP")
+      showTab("singlecell_tabs", target = "Feature Plot")
+      showTab("singlecell_tabs", target = "Ridge Plot")
+      showTab("singlecell_tabs", target = "Violin Plot")
+      showTab("singlecell_tabs", target = "Dot Plot")
+      showTab("singlecell_tabs", target = "Sample Makeup Plot")
+      showTab("singlecell_tabs", target = "Gene Expression Heatmap")
+      hideTab("singlecell_tabs", target = "Empty Tab")
     }
   })
   
