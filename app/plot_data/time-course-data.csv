@@ -1,0 +1,38 @@
+"Project","Longname","TimePoint","FoldChange","Species","Sex","Organ","P1t","PMID","GEO","DesignType","Chemical","Assay","Strain"
+"132","Prj132_BCells_Multispecies",8,1.724803079,"human","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","Human"
+"132","Prj132_BCells_Multispecies",24,10.17543973,"human","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","Human"
+"132","Prj132_BCells_Multispecies",4,1.782093935,"human","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","Human"
+"132","Prj132_BCells_Multispecies",4,31.54100302,"mouse","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","C57BL/6"
+"132","Prj132_BCells_Multispecies",24,14.83257406,"mouse","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","C57BL/6"
+"132","Prj132_BCells_Multispecies",8,20.30453739,"mouse","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","C57BL/6"
+"132","Prj132_BCells_Multispecies",8,1,"rat","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","sprague-dawley"
+"132","Prj132_BCells_Multispecies",24,1.330287618,"rat","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","sprague-dawley"
+"132","Prj132_BCells_Multispecies",4,2.715399375,"rat","female","B lymphocytes, primary","0",NA,NA,"Time-course","TCDD","RNA-Seq","sprague-dawley"
+"142","Mouse male TCDD time-course",12,787.68,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"142","Mouse male TCDD time-course",8,964.45,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"142","Mouse male TCDD time-course",24,1056.12,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"142","Mouse male TCDD time-course",168,1594.49,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"142","Mouse male TCDD time-course",2,63.95,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"142","Mouse male TCDD time-course",72,863.45,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"142","Mouse male TCDD time-course",4,723.18,"mouse","male","liver","142",29752288,"GSE109863
+","Time-course","TCDD","RNA-Seq","C57BL/6"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,4.28,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","FVB/NJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,-0.17,"mouse","female","liver","163",NA,NA,"GWAS","TCDD","RNA-Seq","CC019/TauUnc"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,1.82,"mouse","female","liver","163",NA,NA,"GWAS","TCDD","RNA-Seq","129S1/SvImJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,10.01,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","CBA/J"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,2.37,"mouse","female","liver","163",NA,NA,"GWAS","TCDD","RNA-Seq","DBA/1J"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,10.15,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","BXD100/RwwJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,4.33,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","BALB/CJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,0.47,"mouse","female","liver","163",NA,NA,"GWAS","TCDD","RNA-Seq","NOD/ShiLtJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,9.41,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","C3HeB/FeJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,11.74,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","C57BL/6"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,-0.3,"mouse","female","liver","163",NA,NA,"GWAS","TCDD","RNA-Seq","NZO/HlLtJ"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,4.55,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","A/J"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,11.25,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","BXD91Rww"
+"163","RNA-seq analysis of TCDD mouse diversity panel",10,1.37,"mouse","female","liver","0",NA,NA,"GWAS","TCDD","RNA-Seq","BXD40/TyJ"
