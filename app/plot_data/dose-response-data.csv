@@ -1,0 +1,175 @@
+"Project","Longname","Dose","FoldChange","Species","Sex","Organ","P1t","DesignType","PMID","GEO","Chemical","Assay","Strain"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.01,0.816,"mouse","female","liver","0",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.01,0.816,"mouse","female","liver","0",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.01,0.816,"mouse","female","liver","0",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.03,7.526,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.03,7.526,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.03,7.526,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.1,130.858,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.1,130.858,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.1,130.858,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.3,550.711,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.3,550.711,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",0.3,550.711,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",1,753.324,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",1,753.324,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",1,753.324,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",3,958.609,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",3,958.609,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",3,958.609,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",10,1085.23,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",10,1085.23,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",10,1085.23,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",30,1250.23,"mouse","female","liver","129",25958198,"GSE62850","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",30,1250.23,"mouse","female","liver","129",25958198,"GSE62902","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"129","Mouse female 28 days repeated TCDD dose-response 
+",30,1250.23,"mouse","female","liver","129",26377647,"GSE70379
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",0.01,1.088,"mouse","female","liver","0",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",0.03,23.385,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",0.1,195.234,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",0.3,481.379,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",1,651.371,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",3,856.548,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",10,958.319,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"130","Mouse female 92 days repeated TCDD dose-response",30,1228.023,"mouse","female","liver","130",27562557,"GSE81990
+","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"131","Rat female 28 Days repeated TCDD dose-response",0.01,16.595,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"131","Rat female 28 Days repeated TCDD dose-response",0.03,68.976,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"131","Rat female 28 Days repeated TCDD dose-response",0.1,212.103,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"131","Rat female 28 Days repeated TCDD dose-response",0.3,306.04,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"131","Rat female 28 Days repeated TCDD dose-response",1,678.201,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"131","Rat female 28 Days repeated TCDD dose-response",3,837.304,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"131","Rat female 28 Days repeated TCDD dose-response",10,680.395,"rat","female","liver","131",NA,"GSE110293","Dose-response","TCDD","RNA-Seq","sprague-dawley"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,2.53,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,2.53,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,2.53,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,2.53,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,2.53,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,1.06,"mouse","male","Ileum, distal","0",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,1.06,"mouse","male","Ileum, distal","0",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,1.06,"mouse","male","Ileum, distal","0",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,1.06,"mouse","male","Ileum, distal","0",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.01,1.06,"mouse","male","Ileum, distal","0",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,36.87,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,36.87,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,36.87,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,36.87,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,36.87,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,1.03,"mouse","male","Ileum, distal","0",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,1.03,"mouse","male","Ileum, distal","0",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,1.03,"mouse","male","Ileum, distal","0",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,1.03,"mouse","male","Ileum, distal","0",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.03,1.03,"mouse","male","Ileum, distal","0",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,436.74,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,436.74,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,436.74,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,436.74,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,436.74,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,1.25,"mouse","male","Ileum, distal","0",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,1.25,"mouse","male","Ileum, distal","0",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,1.25,"mouse","male","Ileum, distal","0",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,1.25,"mouse","male","Ileum, distal","0",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.1,1.25,"mouse","male","Ileum, distal","0",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1218.63,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1218.63,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1218.63,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1218.63,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1218.63,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1.18,"mouse","male","Ileum, distal","0",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1.18,"mouse","male","Ileum, distal","0",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1.18,"mouse","male","Ileum, distal","0",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1.18,"mouse","male","Ileum, distal","0",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",0.3,1.18,"mouse","male","Ileum, distal","0",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,2079.22,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,2079.22,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,2079.22,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,2079.22,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,2079.22,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,4.39,"mouse","male","Ileum, distal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,4.39,"mouse","male","Ileum, distal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,4.39,"mouse","male","Ileum, distal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,4.39,"mouse","male","Ileum, distal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",1,4.39,"mouse","male","Ileum, distal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2512.75,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2512.75,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2512.75,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2512.75,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2512.75,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2.49,"mouse","male","Ileum, proximal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2.49,"mouse","male","Ileum, proximal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2.49,"mouse","male","Ileum, proximal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2.49,"mouse","male","Ileum, proximal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,2.49,"mouse","male","Ileum, proximal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,25.86,"mouse","male","Ileum, distal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,25.86,"mouse","male","Ileum, distal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,25.86,"mouse","male","Ileum, distal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,25.86,"mouse","male","Ileum, distal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",3,25.86,"mouse","male","Ileum, distal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,2271.44,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,2271.44,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,2271.44,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,2271.44,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,2271.44,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,42.07,"mouse","male","Ileum, proximal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,42.07,"mouse","male","Ileum, proximal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,42.07,"mouse","male","Ileum, proximal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,42.07,"mouse","male","Ileum, proximal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,42.07,"mouse","male","Ileum, proximal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,361.15,"mouse","male","Ileum, distal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,361.15,"mouse","male","Ileum, distal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,361.15,"mouse","male","Ileum, distal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,361.15,"mouse","male","Ileum, distal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",10,361.15,"mouse","male","Ileum, distal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1770.99,"mouse","male","liver","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1770.99,"mouse","male","liver","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1770.99,"mouse","male","liver","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1770.99,"mouse","male","liver","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1770.99,"mouse","male","liver","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,117.04,"mouse","male","Ileum, proximal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,117.04,"mouse","male","Ileum, proximal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,117.04,"mouse","male","Ileum, proximal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,117.04,"mouse","male","Ileum, proximal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,117.04,"mouse","male","Ileum, proximal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1056.41,"mouse","male","Ileum, distal","140",NA,"GSE90097","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1056.41,"mouse","male","Ileum, distal","140",8213091,"GSE87519","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1056.41,"mouse","male","Ileum, distal","140",28213091,"GSE87542","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1056.41,"mouse","male","Ileum, distal","140",28725001,"GSE89430","Dose-response","TCDD","RNA-Seq","C57BL/6"
+"140","Mouse male 28 days repeated TCDD dose-response",30,1056.41,"mouse","male","Ileum, distal","140",29673856,"GSE104551","Dose-response","TCDD","RNA-Seq","C57BL/6"

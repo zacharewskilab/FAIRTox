@@ -39,7 +39,8 @@ ui <- function(request){
                   HTML('<hr background-color="#333" color = "#333">'),
                   div(id = "plotPreviewPanel",
                       actionButton("EditExportSize", "Edit export size"),
-                      actionButton("ResetToDefault", "Reset to default")                      
+                      actionButton("ResetToDefault", "Reset to default"),
+                      actionButton("ExportPlotData", "Export Plot Data")
                   ),
                   HTML('<hr background-color="#333" color = "#333">')
                 ),

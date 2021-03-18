@@ -64,6 +64,12 @@ shinyServer(function(input, output, session){
       legend_position = "none"
     }
     
+    observeEvent(input$ExportPlotData, {
+      print("Exporting Data")
+      print(head(df))
+      write.csv(data.frame(df), "./plot_data/dose-response-data.csv", row.names = F)
+    })
+    
     # Creates plot(s)
     plot <- ggplot(data = df, mapping = aes(x = Dose, y = FoldChange, text = paste("Project: ", Longname))) +
       geom_line(aes(color = Project, linetype = Organ)) +
@@ -229,6 +235,12 @@ shinyServer(function(input, output, session){
     else{
       legend_position = "none"
     }
+    
+    observeEvent(input$ExportPlotData, {
+      print("Exporting Data")
+      print(head(df))
+      write.csv(data.frame(df), "./plot_data/time-course-data.csv", row.names = F)
+    })
     
     # Creates plot
     plot <- ggplot(data = df, mapping = aes(x = TimePoint, y = FoldChange, text = paste("Project: ", Longname))) +
@@ -1893,6 +1905,9 @@ shinyServer(function(input, output, session){
     
     # Get all barcoded cells for genes selected and rename columns for merge
     gene_df <- getGeneData(c(gene_list), sn$barcodes.order, sn)
+    
+    #write.csv(gene_df, "C:\\Users\\Jack\\Desktop\\gene_df.csv")
+    
     colnames(gene_df) <- c("GENE", "NAME", "VALUE")
     # Merge on barcode
     gene_df <- merge(gene_df, sn$umap, by = "NAME")
