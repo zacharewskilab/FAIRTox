@@ -3,3 +3,4 @@ app/QC_failures.txt
 app/data_for_PCA.rds
 app/data_for_PLS.rds
 app/.Rhistory
+app/plot_data/*.csv
