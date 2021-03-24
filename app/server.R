@@ -390,7 +390,13 @@ shinyServer(function(input, output, session){
     double.frame <- df
     double.frame$ZT <- double.ZT
     df <- rbind(df, double.frame)
-        
+    
+    observeEvent(input$ExportPlotData, {
+      print("Exporting Data")
+      print(head(df))
+      write.csv(data.frame(df), "./plot_data/circadian-avg-data.csv", row.names = F)
+    })
+    
     # Creates plot
     plot <- ggplot(data = df, mapping = aes(x = ZT, y = FoldChange, text = paste("Project: ", Longname))) +
       geom_line(aes(color = Project_ID, linetype = Organ_name, group = Project_ID)) +
@@ -447,6 +453,12 @@ shinyServer(function(input, output, session){
     
     # Convert dose column to a factor
     df$Dose = as.factor(df$Dose)
+    
+    observeEvent(input$ExportPlotData, {
+      print("Exporting Data")
+      print(head(df))
+      write.csv(data.frame(df), "./plot_data/circadian-counts-data.csv", row.names = F)
+    })
     
     # Creates plot
     plot <- ggplot(data = df, mapping = aes(x = ZT, y = NormalizedSignalMean, text = paste("Project: ", Project_ID))) +
@@ -529,6 +541,12 @@ shinyServer(function(input, output, session){
     if (input$YLogScaleBE){
       YTrans <- "log"
     }
+    
+    observeEvent(input$ExportPlotData, {
+      print("Exporting Data")
+      print(head(df))
+      write.csv(data.frame(df), "./plot_data/expr-plot-data.csv", row.names = F)
+    })
     
     # Create formula for grouping
     vector <- c(input$groupCountBy)
@@ -1303,6 +1321,12 @@ shinyServer(function(input, output, session){
     label = "none"
     if(input$pca_show_hide_label_input){label = "all"}
     
+    observeEvent(input$ExportPlotData, {
+      print("Exporting Data")
+      print(head(res.pca))
+      write.csv(data.frame(res.pca), "./plot_data/pca-data.csv", row.names = F)
+    })
+    
     # Plot PCA individuals (samples)
     print('plotting pca...')
     plot <- fviz_pca_ind(res.pca,
@@ -1373,7 +1397,6 @@ shinyServer(function(input, output, session){
     }
     
     # Set grouping and color palette based on user input and data availability
-    #TODO: fix reactivity and functionality
     if(length(unique(grouping_vector)) == 1 | length(input$pca_ellipse_group_by_input) == 0 | input$pca_show_hide_ellipses_input == FALSE){
       groups = 'black'
       palette = NULL
