@@ -91,6 +91,12 @@ $ docker ps
 
 7b. To access the ShinyApp, navigate to dockerhost:80 in your web browser of choice.
 
+## Deployment on AWS
+1. Download and install PuTTY
+2. Start empty EC2 instance on AWS (we recommend t3.xlarge). Detailed instructions [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html) 
+3. Follow steps [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html) for connecting to new instance
+4. Launch app within docker container (above)
+
 ## Built With
 * [R Shiny](http://shiny.rstudio.com)
 * [Docker](https://www.docker.com/)
